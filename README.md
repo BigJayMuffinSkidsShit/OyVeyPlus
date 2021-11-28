@@ -12,5 +12,11 @@ Fix rendering issues,
 add a working command system,
 add more commands,
 
+Modules that will be added:
+SelfTrap,
+AutoTrap,
+Crystal Aura
+BedAura(maybe)
+
 Discord invite if u have any questions about the client then ask them in here :
 https://discord.gg/5bpvnPafKd
