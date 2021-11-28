@@ -6,9 +6,11 @@ also some of the modules do not work and are currently being fixxed - so if u tr
 
 TODO list:
 
-Rewrite most of the modules
-add a basic ca
-Fix rendering issues
+Rewrite most of the modules,
+add a basic ca,
+Fix rendering issues,
+add a working command system,
+add more commands,
 
 Discord invite if u have any questions about the client then ask them in here :
 https://discord.gg/5bpvnPafKd
