@@ -6,14 +6,33 @@ import me.muffin.oyveyplus.api.settings.Setting;
 import me.muffin.oyveyplus.api.utils.BlockUtil;
 import me.muffin.oyveyplus.api.utils.ColorUtil;
 import me.muffin.oyveyplus.api.utils.RenderUtil;
+import me.muffin.oyveyplus.api.utils.advanced.RenderBlock.BlockColor;
+import me.muffin.oyveyplus.api.utils.advanced.Renderer;
 import me.muffin.oyveyplus.impl.modules.client.Gui;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemShulkerBox;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.TileEntityDispenser;
+import net.minecraft.tileentity.TileEntityEnderChest;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.tileentity.TileEntityHopper;
+import net.minecraft.tileentity.TileEntityShulkerBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.awt.*;
+import java.util.ArrayList;
+
+import org.lwjgl.opengl.GL11;
+
+
 
 public class HoleESP extends Module {
     public Setting<Boolean> renderOwn = register("RenderOwn", true);
@@ -50,7 +69,7 @@ public class HoleESP extends Module {
     private Setting<Double> safecAlpha = register("OL-SafeAlpha", Integer.valueOf(255), Integer.valueOf(0), Integer.valueOf(255),0);
     private static HoleESP INSTANCE = new HoleESP();
     private int currentAlpha = 0;
-
+    static int delay;
     public HoleESP() {
         super("HoleESP", "Shows safe spots.", Category.Render);
         setInstance();
@@ -67,25 +86,47 @@ public class HoleESP extends Module {
         return INSTANCE;
     }
 
+
     @Override
     public void onRender3D(Render3DEvent event) {
-        assert (HoleESP.mc.getRenderViewEntity() != null);
-        Vec3i playerPos = new Vec3i(HoleESP.mc.getRenderViewEntity().posX, HoleESP.mc.getRenderViewEntity().posY, HoleESP.mc.getRenderViewEntity().posZ);
-        for (int x = playerPos.getX() - range.getValue().intValue(); x < playerPos.getX() + range.getValue(); ++x) {
-            for (int z = playerPos.getZ() - range.getValue().intValue(); z < playerPos.getZ() + range.getValue(); ++z) {
-                for (int y = playerPos.getY() + rangeY.getValue().intValue(); y > playerPos.getY() - rangeY.getValue(); --y) {
-                    BlockPos pos = new BlockPos(x, y, z);
-                    if (!HoleESP.mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR) || !HoleESP.mc.world.getBlockState(pos.add(0, 1, 0)).getBlock().equals(Blocks.AIR) || !HoleESP.mc.world.getBlockState(pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR) || pos.equals(new BlockPos(HoleESP.mc.player.posX, HoleESP.mc.player.posY, HoleESP.mc.player.posZ)) && !renderOwn.getValue().booleanValue() || !BlockUtil.isPosInFov(pos).booleanValue() && fov.getValue().booleanValue())
-                        continue;
-                    if (HoleESP.mc.world.getBlockState(pos.north()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(pos.east()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(pos.west()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(pos.south()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(pos.down()).getBlock() == Blocks.BEDROCK) {
-                        RenderUtil.drawBoxESP(pos, rainbow.getValue() ? ColorUtil.rainbow(Gui.instance.rainbowHue.getValue().intValue()) : new Color(safeRed.getValue().intValue(), safeGreen.getValue().intValue(), safeBlue.getValue().intValue(), safeAlpha.getValue().intValue()), customOutline.getValue(), new Color(safecRed.getValue().intValue(), safecGreen.getValue().intValue(), safecBlue.getValue().intValue(), safecAlpha.getValue().intValue()), lineWidth.getValue().floatValue(), outline.getValue(), box.getValue(), boxAlpha.getValue().intValue(), true, height.getValue(), gradientBox.getValue(), gradientOutline.getValue(), invertGradientBox.getValue(), invertGradientOutline.getValue(), currentAlpha);
-                        continue;
-                    }
-                    if (!BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(pos.down()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(pos.east()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(pos.west()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(pos.south()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(pos.north()).getBlock()))
-                        continue;
-                    RenderUtil.drawBoxESP(pos, rainbow.getValue() ? ColorUtil.rainbow(Gui.instance.rainbowHue.getValue().intValue()) : new Color(red.getValue().intValue(), green.getValue().intValue(), blue.getValue().intValue(), alpha.getValue().intValue()), customOutline.getValue(), new Color(cRed.getValue().intValue(), cGreen.getValue().intValue(), cBlue.getValue().intValue(), cAlpha.getValue().intValue()), lineWidth.getValue().floatValue(), outline.getValue(), box.getValue(), boxAlpha.getValue().intValue(), true, height.getValue(), gradientBox.getValue(), gradientOutline.getValue(), invertGradientBox.getValue(), invertGradientOutline.getValue(), currentAlpha);
-                }
-            }
-        }
+
+    	super.onRender3D(event);
     }
+    
+
+    
+    @SubscribeEvent
+    public void onWorldRender(RenderWorldLastEvent event) {
+        
+    }
+
+
+    @Override
+    public void onEnable() {
+
+    	
+    	super.onEnable();
+    }
+
+    
+
+@Override
+public void Update() {
+	// TODO Auto-generated method stub
+	for(BlockPos b : BlockUtil.getAll(20))
+	{	
+	                    if (!HoleESP.mc.world.getBlockState(b).getBlock().equals(Blocks.AIR) || !HoleESP.mc.world.getBlockState(b.add(0, 1, 0)).getBlock().equals(Blocks.AIR) || !HoleESP.mc.world.getBlockState(b.add(0, 2, 0)).getBlock().equals(Blocks.AIR) || b.equals(new BlockPos(HoleESP.mc.player.posX, HoleESP.mc.player.posY, HoleESP.mc.player.posZ)) && !renderOwn.getValue().booleanValue() || !BlockUtil.isPosInFov(b).booleanValue() && fov.getValue().booleanValue())
+	                        continue;
+	                    if (HoleESP.mc.world.getBlockState(b.north()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.east()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.west()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.south()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.down()).getBlock() == Blocks.BEDROCK) {
+	                    	
+	                    	Renderer.filledBoxes.add(new BlockColor(b, rainbow.getValue() ? ColorUtil.rainbow(Gui.instance.rainbowHue.getValue().intValue()) : new Color(safeRed.getValue().intValue(), safeGreen.getValue().intValue(), safeBlue.getValue().intValue(), safeAlpha.getValue().intValue()), 3));		
+	                    	continue;
+	                    }
+	                    if (!BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(b.down()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(b.east()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(b.west()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(b.south()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(b.north()).getBlock()))
+	                        continue;
+	       
+	                    Renderer.filledBoxes.add(new BlockColor(b, rainbow.getValue() ? ColorUtil.rainbow(Gui.instance.rainbowHue.getValue().intValue()) : new Color(red.getValue().intValue(), green.getValue().intValue(), blue.getValue().intValue(), alpha.getValue().intValue()), 3));		
+	                }
+	super.Update();
+}
 }

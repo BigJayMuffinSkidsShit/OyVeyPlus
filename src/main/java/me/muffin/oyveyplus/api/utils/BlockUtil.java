@@ -25,6 +25,8 @@ import net.minecraft.world.chunk.Chunk;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -36,6 +38,43 @@ public class BlockUtil implements Wrapper {
     public static final List<Block> unSafeBlocks = Arrays.asList(Blocks.OBSIDIAN, Blocks.BEDROCK, Blocks.ENDER_CHEST, Blocks.ANVIL);
     public static List<Block> unSolidBlocks = Arrays.asList(Blocks.FLOWING_LAVA, Blocks.FLOWER_POT, Blocks.SNOW, Blocks.CARPET, Blocks.END_ROD, Blocks.SKULL, Blocks.FLOWER_POT, Blocks.TRIPWIRE, Blocks.TRIPWIRE_HOOK, Blocks.WOODEN_BUTTON, Blocks.LEVER, Blocks.STONE_BUTTON, Blocks.LADDER, Blocks.UNPOWERED_COMPARATOR, Blocks.POWERED_COMPARATOR, Blocks.UNPOWERED_REPEATER, Blocks.POWERED_REPEATER, Blocks.UNLIT_REDSTONE_TORCH, Blocks.REDSTONE_TORCH, Blocks.REDSTONE_WIRE, Blocks.AIR, Blocks.PORTAL, Blocks.END_PORTAL, Blocks.WATER, Blocks.FLOWING_WATER, Blocks.LAVA, Blocks.FLOWING_LAVA, Blocks.SAPLING, Blocks.RED_FLOWER, Blocks.YELLOW_FLOWER, Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Blocks.WHEAT, Blocks.CARROTS, Blocks.POTATOES, Blocks.BEETROOTS, Blocks.REEDS, Blocks.PUMPKIN_STEM, Blocks.MELON_STEM, Blocks.WATERLILY, Blocks.NETHER_WART, Blocks.COCOA, Blocks.CHORUS_FLOWER, Blocks.CHORUS_PLANT, Blocks.TALLGRASS, Blocks.DEADBUSH, Blocks.VINE, Blocks.FIRE, Blocks.RAIL, Blocks.ACTIVATOR_RAIL, Blocks.DETECTOR_RAIL, Blocks.GOLDEN_RAIL, Blocks.TORCH);
 
+	public static ArrayList<BlockPos> getFriends(BlockPos friend)
+	{
+		ArrayList<BlockPos> friends = new ArrayList<BlockPos>();
+		friends.add(new BlockPos(friend.getX()+1, friend.getY(), friend.getZ()));
+		friends.add(new BlockPos(friend.getX()-1, friend.getY(), friend.getZ()));
+		friends.add(new BlockPos(friend.getX(), friend.getY(), friend.getZ()+1));
+		friends.add(new BlockPos(friend.getX(), friend.getY(), friend.getZ()-1));
+		return friends;
+		
+	}
+    
+	
+	
+    public static BlockPos GetFlooredPosition(BlockPos pos) 
+    {
+		return new BlockPos(Math.floor(pos.getX()) + 0.5, Math.floor(pos.getY()), Math.floor(pos.getZ()) + 0.5);
+    	
+    }
+    
+    public static boolean isSurrounded(BlockPos pos)
+    {
+    	int a = 0;
+    	for(BlockPos b : getFriends(pos))
+    	{
+    		if(getBlock(b)==Blocks.OBSIDIAN || getBlock(b)==Blocks.BEDROCK)
+    		{
+    			a++;
+    		}
+    	}
+    	if(a==4)
+    	{
+    		return true;
+    	}
+		return false;
+    	
+    }
+    
     public static List<BlockPos> getBlockSphere(float breakRange, Class clazz) {
         NonNullList positions = NonNullList.create();
         positions.addAll(BlockUtil.getSphere(EntityUtil.getPlayerPos(BlockUtil.mc.player), breakRange, (int) breakRange, false, true, 0).stream().filter(pos -> clazz.isInstance(BlockUtil.mc.world.getBlockState(pos).getBlock())).collect(Collectors.toList()));
@@ -489,6 +528,48 @@ public class BlockUtil implements Wrapper {
         return block.getBlockHardness(blockState, BlockUtil.mc.world, pos) != -1.0f;
     }
 
+	/**
+	 * Searches around the player to find the given block.
+	 * @radius the radius to search around the player
+	 */
+	public static BlockPos findBlock(Block block, int radius) {
+        for (int x = (int) (mc.player.posX - radius); x < mc.player.posX + radius; x++) {
+            for (int z = (int) (mc.player.posZ - radius); z < mc.player.posZ + radius; z++) {
+                for (int y = (int) (mc.player.posY + radius); y > mc.player.posY - radius; y--) {
+                	BlockPos pos = new BlockPos(x, y, z);
+                	if (mc.world.getBlockState(pos).getBlock().equals(block)) {
+                		return pos;
+                	}
+                }
+            }
+        }
+		
+		return null;
+	}
+	
+	/**
+	 * Gets all the BlockPositions in the given radius around the player
+	 */
+	public static List<BlockPos> getAll(int radius) {
+		List<BlockPos> list = new ArrayList<BlockPos>();
+        for (int x = (int) (mc.player.posX - radius); x < mc.player.posX + radius; x++) {
+            for (int z = (int) (mc.player.posZ - radius); z < mc.player.posZ + radius; z++) {
+                for (int y = (int) (mc.player.posY + radius); y > mc.player.posY - radius; y--) {
+            		list.add(new BlockPos(x, y, z));
+                }
+            }
+        }
+        
+        Collections.sort(list, new Comparator<BlockPos>() {
+            @Override
+            public int compare(BlockPos lhs, BlockPos rhs) {
+                return mc.player.getDistanceSq(lhs) > mc.player.getDistanceSq(rhs) ? 1 : (mc.player.getDistanceSq(lhs) < mc.player.getDistanceSq(rhs)) ? -1 : 0;
+            }
+        });
+        
+        return list;
+	}
+    
     public static boolean isValidBlock(BlockPos pos) {
         Block block = BlockUtil.mc.world.getBlockState(pos).getBlock();
         return !(block instanceof BlockLiquid) && block.getMaterial(null) != Material.AIR;

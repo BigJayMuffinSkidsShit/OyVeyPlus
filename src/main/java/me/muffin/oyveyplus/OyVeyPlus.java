@@ -2,6 +2,7 @@ package me.muffin.oyveyplus;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+
 import me.muffin.oyveyplus.api.command.CommandManager;
 import me.muffin.oyveyplus.api.event.EventHandler;
 import me.muffin.oyveyplus.api.event.events.*;
@@ -11,6 +12,7 @@ import me.muffin.oyveyplus.api.manager.TextManager;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.module.ModuleManager;
 import me.muffin.oyveyplus.api.utils.GLUProjection;
+import me.muffin.oyveyplus.api.utils.advanced.Renderer;
 import me.muffin.oyveyplus.impl.gui.click.ClickGui;
 import me.muffin.oyveyplus.impl.gui.click.hud.HUDEditor;
 import me.muffin.oyveyplus.impl.gui.click.hud.HudComponentManager;
@@ -83,6 +85,7 @@ public class OyVeyPlus implements Wrapper {
         commandManager = new CommandManager();
         gui = new ClickGui();
         hudEditor = new HUDEditor();
+        MinecraftForge.EVENT_BUS.register(new Renderer());
     }
 
     public void renderOverlay(RenderGameOverlayEvent event) {
@@ -113,7 +116,7 @@ public class OyVeyPlus implements Wrapper {
         if (mc.player != null && mc.world != null) OyVeyPlus.moduleManager.getModules().stream().filter(module -> module.getKey() == Keyboard.getEventKey()).forEach(Module::toggle);
     }
 
-    @Subscribe
+    /*@Subscribe
     public void onWorldRender(RenderWorldLastEvent event) {
         if (event.isCanceled()) {
             return;
@@ -149,4 +152,5 @@ public class OyVeyPlus implements Wrapper {
         GlStateManager.enableBlend();
         GlStateManager.enableDepth();
     }
+    */
 }

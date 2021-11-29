@@ -9,6 +9,8 @@ import me.muffin.oyveyplus.api.event.events.Render3DEvent;
 import me.muffin.oyveyplus.api.settings.Setting;
 import me.muffin.oyveyplus.api.utils.MessageUtil;
 import me.muffin.oyveyplus.api.wrapper.Wrapper;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Arrays;
 
@@ -24,6 +26,9 @@ public class Module implements Wrapper {
 
     private boolean enabled = false;
 
+    public int delay=70;
+    private int tmpdelay=0;
+    
     public Module(String name, Category category) {
         super();
         this.name = name;
@@ -87,16 +92,28 @@ public class Module implements Wrapper {
 
     public void onDisable() {
         OyVeyPlus.EVENTBUS.unregister(this);
-        MessageUtil.instance.addMessage(ChatFormatting.RED + getName() + " disabled", false);
+    	MessageUtil.instance.addMessage(ChatFormatting.RED + getName() + " disabled", false);
     }
 
 
     public void onUpdate() {
+    	if(tmpdelay==delay) {
+    		tmpdelay=0;
+    		Update();
+    	}else {
+    		tmpdelay++;
+    	}
     }
 
+    public void Update()
+    {
+    	
+    }
+    
     public void onTick() {
     }
 
+    @SubscribeEvent
     public void onRender3D(Render3DEvent event) {
     }
 

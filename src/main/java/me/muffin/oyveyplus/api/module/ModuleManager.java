@@ -6,9 +6,12 @@ import me.muffin.oyveyplus.api.event.events.Render3DEvent;
 import me.muffin.oyveyplus.impl.gui.click.hud.HudComponent;
 import me.muffin.oyveyplus.impl.modules.client.HUDEditor;
 import me.muffin.oyveyplus.impl.modules.combat.*;
-import me.muffin.oyveyplus.impl.modules.movement.*;
+import me.muffin.oyveyplus.impl.modules.movement.Anchor;
+import me.muffin.oyveyplus.impl.modules.movement.ReverseStep;
+import me.muffin.oyveyplus.impl.modules.movement.Sprint;
 import me.muffin.oyveyplus.api.wrapper.Wrapper;
 import me.muffin.oyveyplus.impl.modules.client.Gui;
+import me.muffin.oyveyplus.impl.modules.movement.Step;
 import me.muffin.oyveyplus.impl.modules.render.*;
 import me.muffin.oyveyplus.impl.modules.world.*;
 import net.minecraftforge.common.MinecraftForge;
@@ -39,7 +42,6 @@ public class ModuleManager implements Wrapper {
                 new Surround(),
                 new Criticals(),
                 /* Movement */
-                new Speed(),
                 new Anchor(),
                 new ReverseStep(),
                 new Sprint(),

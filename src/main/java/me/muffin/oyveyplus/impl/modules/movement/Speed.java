@@ -1,7 +1,6 @@
 package me.muffin.oyveyplus.impl.modules.movement;
 
 import com.google.common.eventbus.Subscribe;
-import me.muffin.oyveyplus.api.event.events.PacketEvent;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.server.SPacketPlayerPosLook;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -111,7 +110,7 @@ public class Speed extends Module {
     }
 
     @SubscribeEvent
-    public void onPacketReceive(PacketEvent.Receive event) {
+    public void onPacketReceive(EventPacket.Receive event) {
         if (event.getPacket() instanceof SPacketPlayerPosLook) {
             moveSpeed = 0;
             lastDist = 0;
