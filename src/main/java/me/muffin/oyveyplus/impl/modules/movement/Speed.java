@@ -15,7 +15,7 @@ public class Speed extends Module {
     }
 
     public Setting<String> mode = register("Mode", "StrictStrafe", "Strafe", "StrictStrafe", "YPort");
-    public Setting<Double> speed = register("Speed", 2.6D, 1, 10, 1).withDesc("It's being ignored if mode is StrictStrafe!");
+    public Setting<Double> speed = register("Speed", 2.6D, 1, 10, 1);
     public Setting<Boolean> liquids = register("Liquids", true);
 
     private double moveSpeed = 0;

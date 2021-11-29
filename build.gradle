@@ -27,8 +27,8 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 
 version = "0.1"
-group = "wtf.fuckyou"
-archivesBaseName = "catclient"
+group = "me.muffin"
+archivesBaseName = "oyveyplus"
 
 sourceCompatibility = targetCompatibility = '1.8'
 

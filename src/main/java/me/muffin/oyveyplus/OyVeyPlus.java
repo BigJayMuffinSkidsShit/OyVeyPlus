@@ -11,34 +11,25 @@ import me.muffin.oyveyplus.api.manager.PositionManager;
 import me.muffin.oyveyplus.api.manager.TextManager;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.module.ModuleManager;
-import me.muffin.oyveyplus.api.utils.GLUProjection;
 import me.muffin.oyveyplus.api.utils.advanced.Renderer;
 import me.muffin.oyveyplus.impl.gui.click.ClickGui;
 import me.muffin.oyveyplus.impl.gui.click.hud.HUDEditor;
 import me.muffin.oyveyplus.impl.gui.click.hud.HudComponentManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.lwjgl.input.Keyboard;
 import me.muffin.oyveyplus.api.friends.FriendManager;
 import me.muffin.oyveyplus.api.settings.SettingManager;
 import me.muffin.oyveyplus.api.wrapper.Wrapper;
-import org.lwjgl.opengl.GL11;
 
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 
 @Mod(modid = OyVeyPlus.MOD_ID, name = OyVeyPlus.NAME, version = OyVeyPlus.VERSION)
@@ -64,7 +55,6 @@ public class OyVeyPlus implements Wrapper {
     public static ClickGui gui;
     public static HUDEditor hudEditor;
     public static CommandManager commandManager;
-    public static DiscordRpc discordRpc;
 
     @Mod.EventHandler public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
@@ -85,8 +75,6 @@ public class OyVeyPlus implements Wrapper {
         commandManager = new CommandManager();
         gui = new ClickGui();
         hudEditor = new HUDEditor();
-        discordRpc = new DiscordRpc();
-        DiscordRpc.start();
         MinecraftForge.EVENT_BUS.register(new Renderer());
     }
 
