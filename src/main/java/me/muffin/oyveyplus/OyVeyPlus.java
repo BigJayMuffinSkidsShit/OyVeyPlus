@@ -64,6 +64,7 @@ public class OyVeyPlus implements Wrapper {
     public static ClickGui gui;
     public static HUDEditor hudEditor;
     public static CommandManager commandManager;
+    public static DiscordRpc discordRpc;
 
     @Mod.EventHandler public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
@@ -74,7 +75,6 @@ public class OyVeyPlus implements Wrapper {
 
     @Mod.EventHandler public void init(FMLInitializationEvent event) {
         logger.info("Welcome To OyVey +");
-
         friendManager = new FriendManager();
         settingManager = new SettingManager();
         moduleManager = new ModuleManager();
@@ -85,6 +85,8 @@ public class OyVeyPlus implements Wrapper {
         commandManager = new CommandManager();
         gui = new ClickGui();
         hudEditor = new HUDEditor();
+        discordRpc = new DiscordRpc();
+        DiscordRpc.start();
         MinecraftForge.EVENT_BUS.register(new Renderer());
     }
 
