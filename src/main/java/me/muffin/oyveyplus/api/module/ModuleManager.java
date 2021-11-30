@@ -41,6 +41,7 @@ public class ModuleManager implements Wrapper {
                 new Offhand(),
                 new Surround(),
                 new Criticals(),
+                new CrystalAura(),
                 /* Movement */
                 new Anchor(),
                 new ReverseStep(),

@@ -1,6 +1,5 @@
 package me.muffin.oyveyplus.api.utils;
 
-import me.muffin.oyveyplus.impl.gui.click.ClickGui;
 import me.muffin.oyveyplus.impl.modules.client.Gui;
 import org.lwjgl.opengl.GL11;
 
@@ -73,4 +72,3 @@ public class ColorUtil
         return Color.getHSBColor((float)((rainbowState %= 360.0) / 360.0), (float) Gui.instance.rainbowSaturation.getValue().intValue() / 255.0f, (float)Gui.instance.rainbowBrightness.getValue().intValue() / 255.0f);
     }
 }
-

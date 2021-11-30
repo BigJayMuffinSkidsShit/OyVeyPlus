@@ -18,7 +18,7 @@ public class Renderer{
 	public static String[] status;
 	public static ArrayList<BlockColor> rectangles = new ArrayList<BlockColor>();
 	public static ArrayList<BlockColor> filledBoxes = new ArrayList<BlockColor>();
-	
+
 	@SubscribeEvent
 	public void renderText(RenderGameOverlayEvent.Text e) {
 		//Draw status

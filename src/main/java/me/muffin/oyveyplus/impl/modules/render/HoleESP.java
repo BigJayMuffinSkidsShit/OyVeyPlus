@@ -5,8 +5,8 @@ import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
 import me.muffin.oyveyplus.api.utils.BlockUtil;
 import me.muffin.oyveyplus.api.utils.ColorUtil;
-import me.muffin.oyveyplus.api.utils.RenderUtil;
 import me.muffin.oyveyplus.api.utils.advanced.RenderBlock.BlockColor;
+import me.muffin.oyveyplus.api.utils.advanced.RenderUtil;
 import me.muffin.oyveyplus.api.utils.advanced.Renderer;
 import me.muffin.oyveyplus.impl.modules.client.Gui;
 import net.minecraft.client.renderer.GlStateManager;
@@ -99,6 +99,7 @@ public void Update() {
 	{	
 	                    if (!HoleESP.mc.world.getBlockState(b).getBlock().equals(Blocks.AIR) || !HoleESP.mc.world.getBlockState(b.add(0, 1, 0)).getBlock().equals(Blocks.AIR) || !HoleESP.mc.world.getBlockState(b.add(0, 2, 0)).getBlock().equals(Blocks.AIR) || b.equals(new BlockPos(HoleESP.mc.player.posX, HoleESP.mc.player.posY, HoleESP.mc.player.posZ)) && !renderown.getValue().booleanValue() || !BlockUtil.isPosInFov(b).booleanValue() && fov.getValue().booleanValue())
 	                        continue;
+
 	                    if (HoleESP.mc.world.getBlockState(b.north()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.east()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.west()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.south()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.down()).getBlock() == Blocks.BEDROCK) {
 	                    	
 	                    	Renderer.filledBoxes.add(new BlockColor(b, rainbow.getValue() ? ColorUtil.rainbow(Gui.instance.rainbowHue.getValue().intValue()) : new Color(safeRed.getValue().intValue(), safeGreen.getValue().intValue(), safeBlue.getValue().intValue(), safeAlpha.getValue().intValue()), 3));		
