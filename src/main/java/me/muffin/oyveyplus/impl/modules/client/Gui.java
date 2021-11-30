@@ -5,6 +5,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 import me.muffin.oyveyplus.OyVeyPlus;
 import me.muffin.oyveyplus.api.settings.Setting;
+import me.muffin.oyveyplus.impl.gui.click.ClickGui;
 
 public class Gui extends Module {
     public static Gui instance;
@@ -25,6 +26,7 @@ public class Gui extends Module {
     @Override
     public void onEnable() {
         mc.displayGuiScreen(OyVeyPlus.gui);
+        ClickGui.isOpen=true;
         disable();
     }
 }

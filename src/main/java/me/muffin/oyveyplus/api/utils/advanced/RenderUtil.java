@@ -51,7 +51,7 @@ public class RenderUtil {
 	    private static final IntBuffer viewport = BufferUtils.createIntBuffer(16);
 	    private static final FloatBuffer modelView = BufferUtils.createFloatBuffer(16);
 	    private static final FloatBuffer projection = BufferUtils.createFloatBuffer(16);
-	  //  public static RenderItem itemRender = RenderUtil.mc.getItemRenderer();
+	  //  public static RenderItem itemRender = RenderUtill.mc.getItemRenderer();
 	    public static ICamera camera = new Frustum();
 	    private static boolean depth = GL11.glIsEnabled(2896);
 	    private static boolean texture = GL11.glIsEnabled(3042);

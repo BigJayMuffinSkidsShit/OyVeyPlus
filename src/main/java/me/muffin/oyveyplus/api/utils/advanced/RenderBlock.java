@@ -3,6 +3,7 @@ package me.muffin.oyveyplus.api.utils.advanced;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
 public class RenderBlock {
@@ -46,25 +47,25 @@ public class RenderBlock {
 	public static class BlockColor {
 		public BlockPos pos;
 		public Color color;
+		public AxisAlignedBB bb;
 		public float width;
 		public double r = 0;
 		public double g = 0;
 		public double b = 0;
 		public double a = 0;
+		public double h=0;
 		public BlockColor(BlockPos pos, Color color, float width) {
 			this.pos = pos;
 			this.color = color;
 			this.width = width;
 		}
 		
-		public BlockColor(BlockPos pos, float width,double r,double g,double b,double a) {
+		public BlockColor(BlockPos pos, Color color, double h) {
 			this.pos = pos;
 			this.color = color;
 			this.width = width;
-			this.r=r;
-			this.g=g;
-			this.b=b;
-			this.a=a;
+			this.bb=bb;
+			this.h=h;
 		}
 	}
 }

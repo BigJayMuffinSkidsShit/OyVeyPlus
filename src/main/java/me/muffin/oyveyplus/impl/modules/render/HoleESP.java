@@ -5,7 +5,7 @@ import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
 import me.muffin.oyveyplus.api.utils.BlockUtil;
 import me.muffin.oyveyplus.api.utils.ColorUtil;
-import me.muffin.oyveyplus.api.utils.RenderUtil;
+import me.muffin.oyveyplus.api.utils.RenderUtill;
 import me.muffin.oyveyplus.api.utils.advanced.RenderBlock.BlockColor;
 import me.muffin.oyveyplus.api.utils.advanced.Renderer;
 import me.muffin.oyveyplus.impl.modules.client.Gui;
@@ -37,6 +37,7 @@ import org.lwjgl.opengl.GL11;
 public class HoleESP extends Module {
     public Setting<Boolean> renderOwn = register("RenderOwn", true);
     public Setting<Boolean> fov = register("InFov", true);
+    public Setting<Boolean> filled = register("FilledMode", true);
     public Setting<Boolean> rainbow = register("Rainbow", false);
     private final Setting<Double> range = register("RangeX", 0, 0, 10,0);
     private final Setting<Double> rangeY = register("RangeY", 0, 0, 10,0);
@@ -46,7 +47,7 @@ public class HoleESP extends Module {
     public Setting<Boolean> outline = register("Outline", true);
     public Setting<Boolean> gradientOutline = register("GradientOutline", Boolean.valueOf(false));
     public Setting<Boolean> invertGradientOutline = register("ReverseOutline", Boolean.valueOf(false));
-    public Setting<Double> height = register("Height", 0.0, -2.0, 2.0,1);
+    public Setting<Double> height = register("Height", 5.0, -2.0, 20.0,1);
     private Setting<Double> red = register("Red", 0, 0, 255,0);
     private Setting<Double> green = register("Green", 255, 0, 255,0);
     private Setting<Double> blue = register("Blue", 0, 0, 255,0);
@@ -119,14 +120,17 @@ public void Update() {
 	                        continue;
 	                    if (HoleESP.mc.world.getBlockState(b.north()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.east()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.west()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.south()).getBlock() == Blocks.BEDROCK && HoleESP.mc.world.getBlockState(b.down()).getBlock() == Blocks.BEDROCK) {
 	                    	
-	                    	Renderer.filledBoxes.add(new BlockColor(b, rainbow.getValue() ? ColorUtil.rainbow(Gui.instance.rainbowHue.getValue().intValue()) : new Color(safeRed.getValue().intValue(), safeGreen.getValue().intValue(), safeBlue.getValue().intValue(), safeAlpha.getValue().intValue()), 3));		
-	                    	continue;
+	                    //	Renderer.filledBoxes.add(new BlockColor(b, rainbow.getValue() ? ColorUtil.rainbow(Gui.instance.rainbowHue.getValue().intValue()) : new Color(safeRed.getValue().intValue(), safeGreen.getValue().intValue(), safeBlue.getValue().intValue(), safeAlpha.getValue().intValue()), 3));		
+	                    	
+	                    	Renderer.customBoxes.add(new BlockColor(b, rainbow.getValue() ? ColorUtil.rainbow(Gui.instance.rainbowHue.getValue().intValue()) : new Color(safeRed.getValue().intValue(), safeGreen.getValue().intValue(), safeBlue.getValue().intValue(), safeAlpha.getValue().intValue()), (double)2));		continue;
 	                    }
 	                    if (!BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(b.down()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(b.east()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(b.west()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(b.south()).getBlock()) || !BlockUtil.isBlockUnSafe(HoleESP.mc.world.getBlockState(b.north()).getBlock()))
 	                        continue;
 	       
-	                    Renderer.filledBoxes.add(new BlockColor(b, rainbow.getValue() ? ColorUtil.rainbow(Gui.instance.rainbowHue.getValue().intValue()) : new Color(red.getValue().intValue(), green.getValue().intValue(), blue.getValue().intValue(), alpha.getValue().intValue()), 3));		
-	                }
+	                   // Renderer.filledBoxes.add(new BlockColor(b, rainbow.getValue() ? ColorUtil.rainbow(Gui.instance.rainbowHue.getValue().intValue()) : new Color(red.getValue().intValue(), green.getValue().intValue(), blue.getValue().intValue(), alpha.getValue().intValue()), 3));
+	                    Renderer.customBoxes.add(new BlockColor(b, rainbow.getValue() ? ColorUtil.rainbow(Gui.instance.rainbowHue.getValue().intValue()) : new Color(red.getValue().intValue(), green.getValue().intValue(), blue.getValue().intValue(), alpha.getValue().intValue()), (double)2));
+	                
+	}
 	super.Update();
 }
 }

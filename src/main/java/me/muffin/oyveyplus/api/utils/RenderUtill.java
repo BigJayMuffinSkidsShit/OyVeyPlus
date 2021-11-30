@@ -22,7 +22,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Objects;
 
-public class RenderUtil implements Wrapper {
+public class RenderUtill implements Wrapper {
     private static final Frustum frustrum = new Frustum();
     private static final FloatBuffer screenCoords = BufferUtils.createFloatBuffer(3);
     private static final IntBuffer viewport = BufferUtils.createIntBuffer(16);
@@ -39,25 +39,25 @@ public class RenderUtil implements Wrapper {
     public static void drawGradientBlockOutline(BlockPos pos, Color startColor, Color endColor, float linewidth, double height) {
         IBlockState iblockstate = mc.world.getBlockState(pos);
         Vec3d interp = EntityUtil.interpolateEntity(mc.player, mc.getRenderPartialTicks());
-        RenderUtil.drawGradientBlockOutline(iblockstate.getSelectedBoundingBox(mc.world, pos).grow(0.002f).offset(-interp.x, -interp.y, -interp.z).expand(0.0, height, 0.0), startColor, endColor, linewidth);
+        RenderUtill.drawGradientBlockOutline(iblockstate.getSelectedBoundingBox(mc.world, pos).grow(0.002f).offset(-interp.x, -interp.y, -interp.z).expand(0.0, height, 0.0), startColor, endColor, linewidth);
     }
 
     public static void drawProperGradientBlockOutline(BlockPos pos, Color startColor, Color midColor, Color endColor, float linewidth) {
         IBlockState iblockstate = mc.world.getBlockState(pos);
         Vec3d interp = EntityUtil.interpolateEntity(mc.player, mc.getRenderPartialTicks());
-        RenderUtil.drawProperGradientBlockOutline(iblockstate.getSelectedBoundingBox(mc.world, pos).grow(0.002f).offset(-interp.x, -interp.y, -interp.z), startColor, midColor, endColor, linewidth);
+        RenderUtill.drawProperGradientBlockOutline(iblockstate.getSelectedBoundingBox(mc.world, pos).grow(0.002f).offset(-interp.x, -interp.y, -interp.z), startColor, midColor, endColor, linewidth);
     }
 
     public static void drawOpenGradientBox(BlockPos pos, Color startColor, Color endColor, double height) {
         for (EnumFacing face : EnumFacing.values()) {
             if (face == EnumFacing.UP) continue;
-            RenderUtil.drawGradientPlane(pos, face, startColor, endColor, height);
+            RenderUtill.drawGradientPlane(pos, face, startColor, endColor, height);
         }
     }
 
     public static void drawClosedGradientBox(BlockPos pos, Color startColor, Color endColor, double height) {
         for (EnumFacing face : EnumFacing.values()) {
-            RenderUtil.drawGradientPlane(pos, face, startColor, endColor, height);
+            RenderUtill.drawGradientPlane(pos, face, startColor, endColor, height);
         }
     }
 
@@ -535,7 +535,7 @@ public class RenderUtil implements Wrapper {
     public static void drawGradientFilledBox(BlockPos pos, Color startColor, Color endColor) {
         IBlockState iblockstate = mc.world.getBlockState(pos);
         Vec3d interp = EntityUtil.interpolateEntity(mc.player, mc.getRenderPartialTicks());
-        RenderUtil.drawGradientFilledBox(iblockstate.getSelectedBoundingBox(mc.world, pos).grow(0.002f).offset(-interp.x, -interp.y, -interp.z), startColor, endColor);
+        RenderUtill.drawGradientFilledBox(iblockstate.getSelectedBoundingBox(mc.world, pos).grow(0.002f).offset(-interp.x, -interp.y, -interp.z), startColor, endColor);
     }
 
     public static void drawGradientFilledBox(AxisAlignedBB bb, Color startColor, Color endColor) {
@@ -590,19 +590,19 @@ public class RenderUtil implements Wrapper {
 
     public static void drawBoxESP(BlockPos pos, Color color, boolean secondC, Color secondColor, float lineWidth, boolean outline, boolean box, int boxAlpha, boolean air) {
         if (box) {
-            RenderUtil.drawBox(pos, new Color(color.getRed(), color.getGreen(), color.getBlue(), boxAlpha));
+            RenderUtill.drawBox(pos, new Color(color.getRed(), color.getGreen(), color.getBlue(), boxAlpha));
         }
         if (outline) {
-            RenderUtil.drawBlockOutline(pos, secondC ? secondColor : color, lineWidth, air);
+            RenderUtill.drawBlockOutline(pos, secondC ? secondColor : color, lineWidth, air);
         }
     }
 
     public static void drawBoxESP(BlockPos pos, Color color, boolean secondC, Color secondColor, float lineWidth, boolean outline, boolean box, int boxAlpha, boolean air, double height, boolean gradientBox, boolean gradientOutline, boolean invertGradientBox, boolean invertGradientOutline, int gradientAlpha) {
         if (box) {
-            RenderUtil.drawBox(pos, new Color(color.getRed(), color.getGreen(), color.getBlue(), boxAlpha), height, gradientBox, invertGradientBox, gradientAlpha);
+            RenderUtill.drawBox(pos, new Color(color.getRed(), color.getGreen(), color.getBlue(), boxAlpha), height, gradientBox, invertGradientBox, gradientAlpha);
         }
         if (outline) {
-            RenderUtil.drawBlockOutline(pos, secondC ? secondColor : color, lineWidth, air, height, gradientOutline, invertGradientOutline, gradientAlpha);
+            RenderUtill.drawBlockOutline(pos, secondC ? secondColor : color, lineWidth, air, height, gradientOutline, invertGradientOutline, gradientAlpha);
         }
     }
 
@@ -783,7 +783,7 @@ public class RenderUtil implements Wrapper {
     public static void drawBox(BlockPos pos, Color color, double height, boolean gradient, boolean invert, int alpha) {
         if (gradient) {
             Color endColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
-            RenderUtil.drawOpenGradientBox(pos, invert ? endColor : color, invert ? color : endColor, height);
+            RenderUtill.drawOpenGradientBox(pos, invert ? endColor : color, invert ? color : endColor, height);
             return;
         }
         AxisAlignedBB bb = new AxisAlignedBB((double) pos.getX() - mc.getRenderManager().viewerPosX, (double) pos.getY() - mc.getRenderManager().viewerPosY, (double) pos.getZ() - mc.getRenderManager().viewerPosZ, (double) (pos.getX() + 1) - mc.getRenderManager().viewerPosX, (double) (pos.getY() + 1) - mc.getRenderManager().viewerPosY + height, (double) (pos.getZ() + 1) - mc.getRenderManager().viewerPosZ);
@@ -835,20 +835,20 @@ public class RenderUtil implements Wrapper {
         IBlockState iblockstate = mc.world.getBlockState(pos);
         if ((air || iblockstate.getMaterial() != Material.AIR) && mc.world.getWorldBorder().contains(pos)) {
             Vec3d interp = EntityUtil.interpolateEntity(mc.player, mc.getRenderPartialTicks());
-            RenderUtil.drawBlockOutline(iblockstate.getSelectedBoundingBox(mc.world, pos).grow(0.002f).offset(-interp.x, -interp.y, -interp.z), color, linewidth);
+            RenderUtill.drawBlockOutline(iblockstate.getSelectedBoundingBox(mc.world, pos).grow(0.002f).offset(-interp.x, -interp.y, -interp.z), color, linewidth);
         }
     }
 
     public static void drawBlockOutline(BlockPos pos, Color color, float linewidth, boolean air, double height, boolean gradient, boolean invert, int alpha) {
         if (gradient) {
             Color endColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
-            RenderUtil.drawGradientBlockOutline(pos, invert ? endColor : color, invert ? color : endColor, linewidth, height);
+            RenderUtill.drawGradientBlockOutline(pos, invert ? endColor : color, invert ? color : endColor, linewidth, height);
             return;
         }
         IBlockState iblockstate = mc.world.getBlockState(pos);
         if ((air || iblockstate.getMaterial() != Material.AIR) && mc.world.getWorldBorder().contains(pos)) {
             AxisAlignedBB blockAxis = new AxisAlignedBB((double) pos.getX() - mc.getRenderManager().viewerPosX, (double) pos.getY() - mc.getRenderManager().viewerPosY, (double) pos.getZ() - mc.getRenderManager().viewerPosZ, (double) (pos.getX() + 1) - mc.getRenderManager().viewerPosX, (double) (pos.getY() + 1) - mc.getRenderManager().viewerPosY + height, (double) (pos.getZ() + 1) - mc.getRenderManager().viewerPosZ);
-            RenderUtil.drawBlockOutline(blockAxis.grow(0.002f), color, linewidth);
+            RenderUtill.drawBlockOutline(blockAxis.grow(0.002f), color, linewidth);
         }
     }
 
@@ -926,7 +926,7 @@ public class RenderUtil implements Wrapper {
     public static void drawOutlinedBlockESP(BlockPos pos, Color color, float linewidth) {
         IBlockState iblockstate = mc.world.getBlockState(pos);
         Vec3d interp = EntityUtil.interpolateEntity(mc.player, mc.getRenderPartialTicks());
-        RenderUtil.drawBoundingBox(iblockstate.getSelectedBoundingBox(mc.world, pos).grow(0.002f).offset(-interp.x, -interp.y, -interp.z), linewidth, ColorUtil.toRGBA(color));
+        RenderUtill.drawBoundingBox(iblockstate.getSelectedBoundingBox(mc.world, pos).grow(0.002f).offset(-interp.x, -interp.y, -interp.z), linewidth, ColorUtil.toRGBA(color));
     }
 
     public static void blockEsp(BlockPos blockPos, Color c, double length, double length2) {
@@ -941,9 +941,9 @@ public class RenderUtil implements Wrapper {
         GL11.glDisable(2929);
         GL11.glDepthMask(false);
         GL11.glColor4d((float) c.getRed() / 255.0f, (float) c.getGreen() / 255.0f, (float) c.getBlue() / 255.0f, 0.25);
-        RenderUtil.drawColorBox(new AxisAlignedBB(x, y, z, x + length2, y + 1.0, z + length), 0.0f, 0.0f, 0.0f, 0.0f);
+        RenderUtill.drawColorBox(new AxisAlignedBB(x, y, z, x + length2, y + 1.0, z + length), 0.0f, 0.0f, 0.0f, 0.0f);
         GL11.glColor4d(0.0, 0.0, 0.0, 0.5);
-        RenderUtil.drawSelectionBoundingBox(new AxisAlignedBB(x, y, z, x + length2, y + 1.0, z + length));
+        RenderUtill.drawSelectionBoundingBox(new AxisAlignedBB(x, y, z, x + length2, y + 1.0, z + length));
         GL11.glLineWidth(2.0f);
         GL11.glEnable(3553);
         GL11.glEnable(2929);
@@ -1083,7 +1083,7 @@ public class RenderUtil implements Wrapper {
     }
 
     public static void glStart(float n, float n2, float n3, float n4) {
-        RenderUtil.glrendermethod();
+        RenderUtill.glrendermethod();
         GL11.glColor4f(n, n2, n3, n4);
     }
 
@@ -1132,7 +1132,7 @@ public class RenderUtil implements Wrapper {
     public static void drawFilledBoxESPN(BlockPos pos, Color color) {
         AxisAlignedBB bb = new AxisAlignedBB((double) pos.getX() - mc.getRenderManager().viewerPosX, (double) pos.getY() - mc.getRenderManager().viewerPosY, (double) pos.getZ() - mc.getRenderManager().viewerPosZ, (double) (pos.getX() + 1) - mc.getRenderManager().viewerPosX, (double) (pos.getY() + 1) - mc.getRenderManager().viewerPosY, (double) (pos.getZ() + 1) - mc.getRenderManager().viewerPosZ);
         int rgba = ColorUtil.toRGBA(color);
-        RenderUtil.drawFilledBox(bb, rgba);
+        RenderUtill.drawFilledBox(bb, rgba);
     }
 
     public static void drawFilledBox(AxisAlignedBB bb, int color) {
@@ -1233,7 +1233,7 @@ public class RenderUtil implements Wrapper {
     }
 
     public static void glBillboardDistanceScaled(float x, float y, float z, EntityPlayer player, float scale) {
-        RenderUtil.glBillboard(x, y, z);
+        RenderUtill.glBillboard(x, y, z);
         int distance = (int) player.getDistance(x, y, z);
         float scaleDistance = (float) distance / 2.0f / (2.0f + (2.0f - scale));
         if (scaleDistance < 1.0f) {

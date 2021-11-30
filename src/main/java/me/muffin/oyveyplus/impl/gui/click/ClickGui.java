@@ -9,9 +9,11 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -21,7 +23,7 @@ public class ClickGui extends GuiScreen {
     public static List<me.muffin.oyveyplus.impl.gui.click.Frame> frames;
     public static Color color;
     private final ParticleSystem particleSystem;
-
+    public static boolean isOpen=false;
     public ClickGui() {
         this.particleSystem = new ParticleSystem(100);
         frames = new ArrayList<>();
@@ -107,6 +109,41 @@ public class ClickGui extends GuiScreen {
         }
     }
 
+	@Override
+	public void handleMouseInput() throws IOException {
+		// TODO Auto-generated method stub
+		 float Scroll =+ Math.signum(Mouse.getEventDWheel());
+		 for(Frame f : frames)
+		 {
+			 if(Scroll>0)
+			 {
+				 if((f.getY()+10)<=5)
+				 {
+					 
+					 f.setY(f.getY()+10);
+				 }
+			 }
+			 if(Scroll<0)
+			 {
+				 f.setY(f.getY()-10);
+			 }
+
+			 
+		 }
+		super.handleMouseInput();
+	}
+    
+    @Override
+    public void onGuiClosed() {
+    	// TODO Auto-generated method stub
+    	this.isOpen=false;
+    	for(Frame fr : frames)
+    	{
+    		fr.setY(5);
+    	}
+    	super.onGuiClosed();
+    }
+    
     @Override
     public boolean doesGuiPauseGame() { return false; }
 

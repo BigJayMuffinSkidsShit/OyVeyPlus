@@ -3,6 +3,7 @@ package me.muffin.oyveyplus.api.utils.advanced;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import me.muffin.oyveyplus.api.utils.RenderUtill;
 import me.muffin.oyveyplus.api.utils.advanced.RenderBlock.BlockColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -18,6 +19,7 @@ public class Renderer{
 	public static String[] status;
 	public static ArrayList<BlockColor> rectangles = new ArrayList<BlockColor>();
 	public static ArrayList<BlockColor> filledBoxes = new ArrayList<BlockColor>();
+	public static ArrayList<BlockColor> customBoxes = new ArrayList<BlockColor>();
 	
 	@SubscribeEvent
 	public void renderText(RenderGameOverlayEvent.Text e) {
@@ -72,6 +74,13 @@ public class Renderer{
 			for (BlockColor FilledBox : filledBoxes) {
 				Color c = FilledBox.color;
 			RenderUtil.drawBoxESP(FilledBox.pos, FilledBox.color, 100, false, true, 100);
+				
+			}
+			
+			//Render CustomBoxes
+			for (BlockColor CustomBox : customBoxes) {
+				Color c = CustomBox.color;
+			RenderUtill.drawBox(CustomBox.pos, CustomBox.color, CustomBox.h, false, false, 100);
 				
 			}
 			
