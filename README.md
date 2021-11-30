@@ -8,7 +8,6 @@ TODO list:
 
 Rewrite most of the modules,
 add a basic ca,
-Fix rendering issues,
 add a working command system,
 add more commands,
 
