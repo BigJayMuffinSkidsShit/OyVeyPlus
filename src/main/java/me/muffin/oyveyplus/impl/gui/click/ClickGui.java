@@ -9,9 +9,11 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -50,6 +52,30 @@ public class ClickGui extends GuiScreen {
         }
     }
 
+	@Override
+	public void handleMouseInput() throws IOException {
+		// TODO Auto-generated method stub
+		 float Scroll =+ Math.signum(Mouse.getEventDWheel());
+		 for(Frame f : frames)
+		 {
+			 if(Scroll>0)
+			 {
+				 if((f.getY()+10)<=5)
+				 {
+					 
+					 f.setY(f.getY()+10);
+				 }
+			 }
+			 if(Scroll<0)
+			 {
+				 f.setY(f.getY()-10);
+			 }
+
+			 
+		 }
+		super.handleMouseInput();
+	}
+    
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         for (final me.muffin.oyveyplus.impl.gui.click.Frame frame : frames) {
@@ -107,6 +133,16 @@ public class ClickGui extends GuiScreen {
         }
     }
 
+    @Override
+    public void onGuiClosed() {
+    	// TODO Auto-generated method stub
+    	for(Frame fr : frames)
+    	{
+    		fr.setY(5);
+    	}
+    	super.onGuiClosed();
+    }
+    
     @Override
     public boolean doesGuiPauseGame() { return false; }
 
