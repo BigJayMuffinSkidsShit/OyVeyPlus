@@ -1,0 +1,39 @@
+# gradle
+
+lib/
+
+.gradle/
+build/
+out/
+classes/
+
+# idea
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# vscode
+
+.settings/
+.vscode/
+bin/
+.classpath
+.project
+
+# forge nd shit
+
+run/
+changelog.txt
+
+#eclipse
+
+bin
+*.launch
+.settings
+.metadata
+
+#other
+
+logs/
