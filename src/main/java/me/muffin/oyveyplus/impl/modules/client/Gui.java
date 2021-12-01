@@ -15,6 +15,7 @@ public class Gui extends Module {
         instance = this;
     }
     public Setting<Boolean> particles = register("Particles",true);
+    public Setting<Double> scrollSpeed = this.register("ScrollSpeed",10,0,50,0);
     public Setting<Double> red = register("Red", 255, 0, 255, 0);
     public Setting<Double> green = register("Green", 0, 0, 255, 0);
     public Setting<Double> blue = register("Blue", 255, 0, 255, 0);

@@ -1,21 +1,16 @@
 package me.muffin.oyveyplus.impl.modules.combat;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-import me.muffin.oyveyplus.OyVeyPlus;
+import me.muffin.oyveyplus.api.event.events.EventPacket;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
-import me.muffin.oyveyplus.api.utils.*;
-import net.minecraft.block.BlockEnderChest;
-import net.minecraft.block.BlockObsidian;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import me.zero.alpine.listener.EventHandler;
+import me.zero.alpine.listener.Listener;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.projectile.EntityFishHook;
+import net.minecraft.network.play.server.SPacketEntityStatus;
+import net.minecraft.network.play.server.SPacketEntityVelocity;
+import net.minecraft.network.play.server.SPacketExplosion;
+import net.minecraftforge.common.MinecraftForge;
 
 public class Velocity extends Module {
     public Velocity() {
@@ -23,7 +18,7 @@ public class Velocity extends Module {
     }
 
     private final Setting<Boolean> exp = register("Crystal",true);
-      private final Setting<Boolean> bobb= register("bobbers",true);
+      private final Setting<Boolean> bobbers = register("bobbers",true);
 
 
     @Override

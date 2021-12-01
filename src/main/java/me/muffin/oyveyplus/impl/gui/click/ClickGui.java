@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -21,6 +22,7 @@ public class ClickGui extends GuiScreen {
     public static List<me.muffin.oyveyplus.impl.gui.click.Frame> frames;
     public static Color color;
     private final ParticleSystem particleSystem;
+    private ArrayList<Component> components = new ArrayList<>();
 
     public ClickGui() {
         this.particleSystem = new ParticleSystem(100);
@@ -98,6 +100,27 @@ public class ClickGui extends GuiScreen {
 
         System.out.println(typedChar);
 
+        if (keyCode == Mouse.getDWheel()) {
+            int dWheel = Mouse.getDWheel();
+            if (dWheel < 0) {
+                for (Frame frame : frames) {
+                    frame.setY(frame.getY() +1);
+                }
+            }
+        }
+
+        if (keyCode == Keyboard.KEY_DOWN) {
+            for (Frame frame : frames) {
+                frame.setY(frame.getY() -1);
+            }
+        }
+
+        if (keyCode == Keyboard.KEY_UP) {
+            for (Frame frame : frames) {
+                frame.setY(frame.getY() +1);
+            }
+        }
+
         if (keyCode == Keyboard.KEY_ESCAPE) {
             mc.displayGuiScreen(null);
 
@@ -106,6 +129,20 @@ public class ClickGui extends GuiScreen {
             }
         }
     }
+
+    /*private void scrollWheelCheck() {
+        int dWheel = Mouse.getDWheel();
+        if (dWheel < 0) {
+            for (Frame frame : frames) {
+                frame.setY(frame.getX() - Gui.instance.scrollSpeed.getValue().intValue());
+            }
+        }
+        if (dWheel > 0) {
+            for (Frame frame : frames) {
+                frame.setY(frame.getX() + Gui.instance.scrollSpeed.getValue().intValue());
+            }
+        }
+    }*/
 
     @Override
     public boolean doesGuiPauseGame() { return false; }

@@ -6,6 +6,7 @@ import me.muffin.oyveyplus.api.event.events.Render3DEvent;
 import me.muffin.oyveyplus.impl.gui.click.hud.HudComponent;
 import me.muffin.oyveyplus.impl.modules.client.HUDEditor;
 import me.muffin.oyveyplus.impl.modules.combat.*;
+import me.muffin.oyveyplus.impl.modules.combat.Velocity;
 import me.muffin.oyveyplus.impl.modules.movement.Anchor;
 import me.muffin.oyveyplus.impl.modules.movement.ReverseStep;
 import me.muffin.oyveyplus.impl.modules.movement.Sprint;
@@ -57,11 +58,13 @@ public class ModuleManager implements Wrapper {
                 new Scaffold(),
                 new Burrow(),
                 new Freecam(),
+                new Velocity(),
                 /* World */
                 new AutoLog(),
                 new Spammer(),
                 new GamemodeChanger(),
                 new EntityMine(),
+                new VisualRange(),
                 /* Client */
                 new Gui(),
                 new HUDEditor()

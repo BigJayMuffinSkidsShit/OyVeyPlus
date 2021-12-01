@@ -39,7 +39,7 @@ compileJava {
 minecraft {
     version = "1.12.2-14.23.5.2847"
     runDir = "run"
-    coreMod = 'wtf.fuckyou.catclient.mixin.MixinLoader'
+    coreMod = 'me.muffin.oyveyplus.impl.mixin.MixinLoader'
     mappings = "stable_39"
 }
 
@@ -82,7 +82,7 @@ shadowJar {
                 "FMLCorePluginContainsFMLMod": 'true',
                 'tweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
                 "ForceLoadAsMod": 'true',
-                "FMLCorePlugin": 'wtf.fuckyou.catclient.mixin.MixinLoader'
+                "FMLCorePlugin": 'me.muffin.oyveyplus.impl.mixin.MixinLoader'
         )
     }
     classifier = 'release'
