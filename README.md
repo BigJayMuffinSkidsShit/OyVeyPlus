@@ -7,16 +7,17 @@ also some of the modules do not work and are currently being fixxed - so if u tr
 TODO list:
 
 Rewrite most of the modules,
-add a basic ca,
-Fix rendering issues,
 add a working command system,
 add more commands,
+rewrite scaffold,
+rewrite trajectories (its ass and dont work),
+visualrange fix
 
 Modules that will be added:
 SelfTrap,
 AutoTrap,
-Crystal Aura
 BedAura(maybe)
+anything from the suggestions channel in our discord
 
 Discord invite if u have any questions about the client then ask them in here :
 https://discord.gg/5bpvnPafKd
