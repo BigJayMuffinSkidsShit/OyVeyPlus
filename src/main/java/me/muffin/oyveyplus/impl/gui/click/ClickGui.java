@@ -50,20 +50,21 @@ public class ClickGui extends GuiScreen {
     
 	public void handleMouseInput() throws IOException {
 		// TODO Auto-generated method stub
+		double scrollspeed=me.muffin.oyveyplus.impl.modules.client.Gui.scrollspeed;
 		 float Scroll =+ Math.signum(Mouse.getEventDWheel());
 		 for(Frame f : frames)
 		 {
 			 if(Scroll>0)
 			 {
-				 if((f.getY()+10)<=5)
+				 if((f.getY()+(int)scrollspeed)<=5)
 				 {
 					 
-					 f.setY(f.getY()+10);
+					 f.setY(f.getY()+(int)scrollspeed);
 				 }
 			 }
 			 if(Scroll<0)
 			 {
-				 f.setY(f.getY()-10);
+				 f.setY(f.getY()-(int)scrollspeed);
 			 }
 
 			 

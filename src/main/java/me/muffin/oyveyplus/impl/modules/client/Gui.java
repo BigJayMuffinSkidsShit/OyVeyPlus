@@ -14,6 +14,7 @@ public class Gui extends Module {
         setKey(Keyboard.KEY_RCONTROL);
         instance = this;
     }
+    public static double scrollspeed;
     public Setting<Boolean> particles = register("Particles",true);
     public Setting<Double> scrollSpeed = this.register("ScrollSpeed",10,0,50,0);
     public Setting<Double> red = register("Red", 255, 0, 255, 0);
@@ -25,6 +26,7 @@ public class Gui extends Module {
 
     @Override
     public void onEnable() {
+    	this.scrollspeed=scrollSpeed.getValue.doubleValue();
         mc.displayGuiScreen(OyVeyPlus.gui);
         disable();
     }
