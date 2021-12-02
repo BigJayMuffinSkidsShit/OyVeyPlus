@@ -3,6 +3,7 @@ package me.muffin.oyveyplus.api.module;
 import com.google.common.eventbus.Subscribe;
 import me.muffin.oyveyplus.api.event.events.EventTick;
 import me.muffin.oyveyplus.api.event.events.Render3DEvent;
+import me.muffin.oyveyplus.api.utils.ClassFinder;
 import me.muffin.oyveyplus.impl.gui.click.hud.HudComponent;
 import me.muffin.oyveyplus.impl.modules.client.HUDEditor;
 import me.muffin.oyveyplus.impl.modules.combat.*;
@@ -17,10 +18,12 @@ import me.muffin.oyveyplus.impl.modules.render.*;
 import me.muffin.oyveyplus.impl.modules.world.*;
 import net.minecraftforge.common.MinecraftForge;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -34,41 +37,20 @@ public class ModuleManager implements Wrapper {
     public ModuleManager() {
         modules = new ArrayList<>();
 
-        modules.addAll(Arrays.asList(
-                /* Combat */
-                new BowAim(),
-                new KillAura(),
-                new SilentXp(),
-                new Offhand(),
-                new Surround(),
-                new Criticals(),
-                new CrystalAura(),
-                /* Movement */
-                new Anchor(),
-                new ReverseStep(),
-                new Sprint(),
-                new Step(),
-                /* Render */
-                new Fullbright(),
-                new HoleESP(),
-                new Sky(),
-                new Trajectories(),
-                /* Player */
-                new FakePlayer(),
-                new Scaffold(),
-                new Burrow(),
-                new Freecam(),
-                new Velocity(),
-                /* World */
-                new AutoLog(),
-                new Spammer(),
-                new GamemodeChanger(),
-                new EntityMine(),
-                new VisualRange(),
-                /* Client */
-                new Gui(),
-                new HUDEditor()
-            ));
+        Set<Class> classList = ClassFinder.findClasses("me.muffin.oyveyplus.impl.modules", Module.class);
+        classList.forEach(aClass -> {
+            try {
+                Module module = (Module) aClass.getConstructor().newInstance();
+                modules.add(module);
+            } catch (InvocationTargetException e) {
+                e.getCause().printStackTrace();
+                System.err.println("Couldn't initiate module " + aClass.getSimpleName() + "! Err: " + e.getClass().getSimpleName() + ", message: " + e.getMessage());
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("Couldn't initiate module " + aClass.getSimpleName() + "! Err: " + e.getClass().getSimpleName() + ", message: " + e.getMessage());
+            }
+        });
+        System.out.println("Modules Initialized ");
         modules.sort(Comparator.comparing(Module::getName));
     }
 
