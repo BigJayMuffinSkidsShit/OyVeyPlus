@@ -37,3 +37,4 @@ bin
 #other
 
 logs/
+/target/
