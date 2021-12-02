@@ -50,21 +50,13 @@ public class CrystalAura extends Module {
     public Setting<Boolean> place = this.register("Place",true);
     public Setting<String> placeHand = this.register("PlcHand","Offhand","MainHand","OffHand");
     public Setting<Double> placeDelay = this.register("PlcDelay",1,0,20,0);
-    public Setting<Boolean> placeObiInSpots = this.register("PlaceObi",false);
     public Setting<Boolean> rotate = this.register("Rotations",false);
 
     public Setting<Boolean> _break = this.register("Break",true);
     public Setting<String> breakHand =  this.register("BrkHand","MainHand","Offhand","MainHand");
     public Setting<Double> breakDelay = this.register("BrkDelay",1,0,20,0);
-    public Setting<Boolean> antiweakness = this.register("AntiWeak",false);
 
     public Setting<String> switchMode = this.register("Switch","Silent","Normal","None");
-    public Setting<String> weaknessSwitch = this.register("WSwitch","None","Silent","Normal","None");
-
-    public Setting<Boolean> pauseWhenEat = this.register("PauseEat",false);
-    public Setting<Boolean> pauseHitBlock = this.register("HitPause",false);
-    public Setting<Boolean> minhealthPause = this.register("HealthPause",false);
-    public Setting<Boolean> requireHealth = this.register("RequireHealth",false);
 
     public Setting<Boolean> facePlace = this.register("FacePlace",true);
     public Setting<Double> facePlaceHealth = this.register("FPHealth",8,0,36,0);
@@ -269,11 +261,6 @@ public class CrystalAura extends Module {
         if(breakSwing.getValue()) {
             swingItem(true);
         }
-
-        if(oldSlot != -1 && weaknessSwitch.getValue().equals("Silent")) {
-            InventoryUtil.switchToHotbarSlot(oldSlot, true);
-        }
-
         breakTicks = 0;
     }
 

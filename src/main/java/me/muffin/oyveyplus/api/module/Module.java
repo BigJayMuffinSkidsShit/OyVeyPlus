@@ -97,16 +97,15 @@ public class Module implements Wrapper {
 
 
     public void onUpdate() {
-    }
-
-    public void Update()
-    {
         if(tmpdelay==delay) {
             tmpdelay=0;
             Update();
         }else {
             tmpdelay++;
         }
+    }
+
+    public void Update() {
     }
     
     public void onTick() {

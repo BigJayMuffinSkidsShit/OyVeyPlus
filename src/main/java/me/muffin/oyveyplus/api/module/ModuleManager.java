@@ -65,6 +65,7 @@ public class ModuleManager implements Wrapper {
                 new GamemodeChanger(),
                 new EntityMine(),
                 new VisualRange(),
+                new BurrowBypass(),
                 /* Client */
                 new Gui(),
                 new HUDEditor()

@@ -7,8 +7,10 @@
     "accessors.AccessorCPacketUseEntity",
     "accessors.IC00Handshake",
     "accessors.IServerAddress",
+    "accessors.AccessorKeybinding",
     "IEntity",
-    "IEntityLivingBase"
+    "IEntityLivingBase",
+    "MixinNetworkManager"
   ],
   "client": []
 }

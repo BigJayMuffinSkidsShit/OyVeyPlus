@@ -1,6 +1,6 @@
 package me.muffin.oyveyplus.impl.modules.combat;
 
-import me.muffin.oyveyplus.api.event.events.EventPacket;
+import me.muffin.oyveyplus.api.event.events.PacketEvent;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
 import me.zero.alpine.listener.EventHandler;
@@ -14,7 +14,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class Velocity extends Module {
     public Velocity() {
-        super ("Velocity", "velocity", Category.Combat);
+        super ("Velocity", "velocity", Category.Player);
     }
 
     private final Setting<Boolean> exp = register("Crystal",true);
@@ -32,15 +32,15 @@ public class Velocity extends Module {
     }
   
   @EventHandler
-    private final Listener<EventPacket.Receive> listener1 = new Listener<>(event -> {
+    private final Listener<PacketEvent.Receive> listener1 = new Listener<>(event -> {
         if(event.getPacket() instanceof SPacketEntityVelocity) {
             if(((SPacketEntityVelocity) event.getPacket()).getEntityID() == mc.player.getEntityId()) {
-                event.cancel();
+                event.setCanceled(true);
             }
         }
 
         if(event.getPacket() instanceof SPacketExplosion && exp.getValue()) {
-            event.cancel();
+            event.setCanceled(true);
         }
 
         if(event.getPacket() instanceof SPacketEntityStatus && bobbers.getValue()) {
@@ -50,7 +50,7 @@ public class Velocity extends Module {
                 if(entity != null && entity instanceof EntityFishHook) {
                     final EntityFishHook fishHook = (EntityFishHook) entity;
                     if(fishHook.caughtEntity == mc.player) {
-                        event.cancel();
+                        event.setCanceled(true);
                     }
                 }
             }

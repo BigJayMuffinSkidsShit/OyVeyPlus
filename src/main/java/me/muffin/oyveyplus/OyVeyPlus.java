@@ -55,6 +55,7 @@ public class OyVeyPlus implements Wrapper {
     public static ClickGui gui;
     public static HUDEditor hudEditor;
     public static CommandManager commandManager;
+    public static float TIMER_VALUE;
 
     @Mod.EventHandler public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
@@ -73,6 +74,7 @@ public class OyVeyPlus implements Wrapper {
         positionManager = new PositionManager();
         hudComponentManager = new HudComponentManager();
         commandManager = new CommandManager();
+        TIMER_VALUE = 1.0f;
         gui = new ClickGui();
         hudEditor = new HUDEditor();
         MinecraftForge.EVENT_BUS.register(new Renderer());

@@ -685,4 +685,53 @@ public class BlockUtil implements Wrapper {
         }
     }
 
+    private static boolean unshift = false;
+
+    public static boolean placeBlock(BlockPos pos) {
+        Block block = BlockUtil.mc.world.getBlockState(pos).getBlock();
+        EnumFacing direction = calcSide(pos);
+
+        if (direction == null) {
+            return false;
+        } else {
+            boolean activated = block.onBlockActivated(BlockUtil.mc.world, pos, BlockUtil.mc.world.getBlockState(pos), BlockUtil.mc.player, EnumHand.MAIN_HAND, direction, 0.0F, 0.0F, 0.0F);
+
+            if (activated) {
+                BlockUtil.mc.player.connection.sendPacket(new CPacketEntityAction(BlockUtil.mc.player, CPacketEntityAction.Action.START_SNEAKING));
+            }
+
+            BlockUtil.mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos.offset(direction), direction.getOpposite(), EnumHand.MAIN_HAND, 0.5F, 0.5F, 0.5F));
+            BlockUtil.mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
+            if (activated || BlockUtil.unshift) {
+                BlockUtil.mc.player.connection.sendPacket(new CPacketEntityAction(BlockUtil.mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
+                BlockUtil.unshift = false;
+            }
+
+            BlockUtil.mc.playerController.updateController();
+            return true;
+        }
+    }
+
+    public static EnumFacing calcSide(BlockPos pos) {
+        EnumFacing[] aenumfacing = EnumFacing.values();
+        int i = aenumfacing.length;
+
+        for (int j = 0; j < i; ++j) {
+            EnumFacing side = aenumfacing[j];
+            IBlockState offsetState = BlockUtil.mc.world.getBlockState(pos.offset(side));
+            boolean activated = offsetState.getBlock().onBlockActivated(BlockUtil.mc.world, pos, offsetState, BlockUtil.mc.player, EnumHand.MAIN_HAND, side, 0.0F, 0.0F, 0.0F);
+
+            if (activated) {
+                BlockUtil.mc.getConnection().sendPacket(new CPacketEntityAction(BlockUtil.mc.player, CPacketEntityAction.Action.START_SNEAKING));
+                BlockUtil.unshift = true;
+            }
+
+            if (offsetState.getBlock().canCollideCheck(offsetState, false) && !offsetState.getMaterial().isReplaceable()) {
+                return side;
+            }
+        }
+
+        return null;
+    }
+
 }

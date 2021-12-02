@@ -1,6 +1,7 @@
 package me.muffin.oyveyplus.impl.modules.client;
 
 import me.muffin.oyveyplus.api.module.Module;
+import me.muffin.oyveyplus.impl.gui.click.ClickGui;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 import me.muffin.oyveyplus.OyVeyPlus;
@@ -15,6 +16,7 @@ public class Gui extends Module {
         instance = this;
     }
     public Setting<Boolean> particles = register("Particles",true);
+    public Setting<Boolean> blur = this.register("Blur",true);
     public Setting<Double> scrollSpeed = this.register("ScrollSpeed",10,0,50,0);
     public Setting<Double> red = register("Red", 255, 0, 255, 0);
     public Setting<Double> green = register("Green", 0, 0, 255, 0);
@@ -26,6 +28,17 @@ public class Gui extends Module {
     @Override
     public void onEnable() {
         mc.displayGuiScreen(OyVeyPlus.gui);
+        if (this.blur.getValue) {
+            mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
+
+        }
         disable();
+    }
+
+    @Override
+    public void onUpdate() {
+            if (mc.entityRenderer.getShaderGroup() != null) {
+                mc.entityRenderer.getShaderGroup().deleteShaderGroup();
+        }
     }
 }
