@@ -105,7 +105,8 @@ public class Module implements Wrapper {
         }
     }
 
-    public void Update() {
+    public void Update()
+    {
     }
     
     public void onTick() {
@@ -116,7 +117,7 @@ public class Module implements Wrapper {
     }
 
     public Setting<Boolean> register(String name, boolean value) {
-        Setting<Boolean> setting = new Setting<>(name, this, getCategory(), value);
+        Setting<Boolean> setting = new Setting<Boolean>(name, this, getCategory(), value);
         OyVeyPlus.settingManager.register(setting);
         return setting;
     }

@@ -95,7 +95,8 @@ public class OyVeyPlus implements Wrapper {
         moduleManager.getModules().stream().filter(Module::isEnabled).forEach(Module::onUpdate);
     }
 
-    @Subscribe public void onTick(EventTick eventTick) {
+    @Subscribe
+    public void onTick(EventTick eventTick) {
         moduleManager.getModules().stream().filter(Module::isEnabled).forEach(Module::onTick);
     }
 

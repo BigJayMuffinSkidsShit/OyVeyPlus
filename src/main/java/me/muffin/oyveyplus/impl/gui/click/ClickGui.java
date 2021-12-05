@@ -13,6 +13,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -37,6 +38,40 @@ public class ClickGui extends GuiScreen {
         }
     }
 
+    @Override
+    public void onGuiClosed() {
+    	// TODO Auto-generated method stub
+    	for(Frame fr : frames)
+    	{
+    		fr.setY(5);
+    	}
+    	super.onGuiClosed();
+    }
+    
+	public void handleMouseInput() throws IOException {
+		// TODO Auto-generated method stub
+		double scrollspeed=me.muffin.oyveyplus.impl.modules.client.Gui.scrollspeed;
+		 float Scroll =+ Math.signum(Mouse.getEventDWheel());
+		 for(Frame f : frames)
+		 {
+			 if(Scroll>0)
+			 {
+				 if((f.getY()+(int)scrollspeed)<=5)
+				 {
+					 
+					 f.setY(f.getY()+(int)scrollspeed);
+				 }
+			 }
+			 if(Scroll<0)
+			 {
+				 f.setY(f.getY()-(int)scrollspeed);
+			 }
+
+			 
+		 }
+		super.handleMouseInput();
+	}
+    
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         color = new Color(Gui.instance.red.getValue().intValue(), Gui.instance.green.getValue().intValue(), Gui.instance.blue.getValue().intValue());
@@ -100,14 +135,7 @@ public class ClickGui extends GuiScreen {
 
         System.out.println(typedChar);
 
-        if (keyCode == Mouse.getDWheel()) {
-            int dWheel = Mouse.getDWheel();
-            if (dWheel < 0) {
-                for (Frame frame : frames) {
-                    frame.setY(frame.getY() +1);
-                }
-            }
-        }
+
 
         if (keyCode == Keyboard.KEY_DOWN) {
             for (Frame frame : frames) {
@@ -117,7 +145,11 @@ public class ClickGui extends GuiScreen {
 
         if (keyCode == Keyboard.KEY_UP) {
             for (Frame frame : frames) {
-                frame.setY(frame.getY() +1);
+            	if(frame.getY() +1<=5)
+            	{
+            		frame.setY(frame.getY() +1);
+            	}
+                
             }
         }
 

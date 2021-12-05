@@ -15,6 +15,7 @@ public class Gui extends Module {
         setKey(Keyboard.KEY_RCONTROL);
         instance = this;
     }
+    public static double scrollspeed=10;
     public Setting<Boolean> particles = register("Particles",true);
     public Setting<Boolean> blur = this.register("Blur",true);
     public Setting<Double> scrollSpeed = this.register("ScrollSpeed",10,0,50,0);
@@ -24,7 +25,7 @@ public class Gui extends Module {
     public Setting<Double> rainbowHue = this.register("Rainbow H",255,0,255, 0);
     public Setting<Double> rainbowBrightness = this.register("Rainbow B",255,0,255,0);
     public Setting<Double> rainbowSaturation = this.register("Rainbow S",255,0,255,0);
-
+   
     @Override
     public void onEnable() {
         mc.displayGuiScreen(OyVeyPlus.gui);
@@ -36,7 +37,7 @@ public class Gui extends Module {
     }
 
     @Override
-    public void onUpdate() {
+    public void onTick() {
             if (mc.entityRenderer.getShaderGroup() != null) {
                 mc.entityRenderer.getShaderGroup().deleteShaderGroup();
         }

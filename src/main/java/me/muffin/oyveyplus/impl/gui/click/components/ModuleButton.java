@@ -13,6 +13,7 @@ import me.muffin.oyveyplus.impl.gui.click.components.settings.SliderButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextFormatting;
 
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -114,7 +115,7 @@ public class ModuleButton extends me.muffin.oyveyplus.impl.gui.click.Component {
     public void render() {
         OyVeyPlus.gui.drawGradient(frame.getX(), frame.getY() + offset, frame.getX() + frame.getWidth(), frame.getY() + offset + 16, isHovered ? new Color(0, 0, 0, 75).getRGB() : new Color(0, 0, 0, 60).getRGB(), isHovered ? new Color(0, 0, 0, 75).getRGB() : new Color(0, 0, 0, 60).getRGB());
         OyVeyPlus.textManager.drawStringWithShadow(module.getName(), frame.getX() + 3, frame.getY() + offset + 1, module.isEnabled() ? -1 :new Color(170, 170, 170).getRGB());
-            if (open) {
+        if (open) {
             OyVeyPlus.textManager.drawStringWithShadow(module.getName() + " -", frame.getX() + 3, frame.getY() + offset + 1, module.isEnabled() ? -1 : new Color(170, 170, 170).getRGB());
             components.forEach(Component::render);
         }

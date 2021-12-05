@@ -49,7 +49,12 @@ public class BlockUtil implements Wrapper {
 		
 	}
     
-	
+	/**
+	 * Distance between these 2 blockpositions
+	 */
+	public static int distance(BlockPos first, BlockPos second) {
+		return Math.abs(first.getX() - second.getX()) + Math.abs(first.getY() - second.getY()) + Math.abs(first.getZ() - second.getZ());
+	}
 	
     public static BlockPos GetFlooredPosition(BlockPos pos) 
     {
