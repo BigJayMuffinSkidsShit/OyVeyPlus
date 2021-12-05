@@ -21,7 +21,6 @@ buildscript {
         classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
 }
-apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'com.github.johnrengelman.shadow'
@@ -75,17 +74,6 @@ dependencies {
 shadowJar {
     dependencies {
         include(dependency('org.spongepowered:mixin'))
-		
-		 // Reflections
-        include(dependency('org.reflections:reflections'))
-        include(dependency('net.jodah:typetools'))
-        include(dependency('org.javassist:javassist'))
-
-        // Annotations
-        include(dependency('org.jetbrains:annotations'))
-
-        // Discord RPC
-        include(dependency('club.minnced:java-discord-rpc'))
     }
 
     manifest {
