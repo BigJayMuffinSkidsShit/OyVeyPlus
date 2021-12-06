@@ -207,6 +207,60 @@ public class InventoryUtil
         return switchedItemSwitched;
     }
 
+    /**
+     * Get slot id for this item if its on inventory
+     */
+    public static int getSlot(Item item) {
+        try {
+            for (ItemStackUtil itemStack : getAllItems()) {
+                if (itemStack.itemStack.getItem().equals(item)) {
+                    return itemStack.slotId;
+                }
+            }
+        } catch (Exception ignored) {
+
+        }
+
+        return -1;
+    }
+
+    /**
+     * Returns the click slot because the slots you click and the other slots are with different ids for some reason.
+     */
+    public static int getClickSlot(int id) {
+        if (id == -1) {
+            return id;
+        }
+
+        if (id < 9) {
+            id += 36;
+            return id;
+        }
+
+        if (id == 39) {
+            id = 5;
+        } else if (id == 38) {
+            id = 6;
+        } else if (id == 37) {
+            id = 7;
+        } else if (id == 36) {
+            id = 8;
+        } else if (id == 40) {
+            id = 45;
+        }
+
+        return id;
+    }
+
+    /**
+     * Clicks the inventory slot with given id
+     */
+    public static void clickSlot(int id) {
+        if (id != -1) {
+            mc.playerController.windowClick(mc.player.openContainer.windowId, getClickSlot(id), 0, ClickType.PICKUP, mc.player);
+        }
+    }
+
     public static boolean[] switchItemToItem(boolean back, int lastHotbarSlot, boolean switchedItem, Switch mode, Item item) {
         boolean[] switchedItemSwitched = new boolean[]{switchedItem, false};
         switch (mode) {
@@ -428,6 +482,49 @@ public class InventoryUtil
 
         public boolean isSwitching() {
             return !this.update;
+        }
+    }
+
+    /**
+     * @return the ItemStack in the given slotid
+     */
+    public static ItemStack getItemStack(int id) {
+        try {
+            return mc.player.inventory.getStackInSlot(id);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Switches the hand to the given slot or puts the item there if it aint in hotbar
+     */
+    public static void switchItem(int slot) {
+        if (slot < 9) {
+            mc.player.inventory.currentItem = slot;
+        }
+    }
+
+    /**
+     * @return a list of all items in your inventory
+     */
+    public static ArrayList<ItemStackUtil> getAllItems() {
+        ArrayList<ItemStackUtil> items = new ArrayList<ItemStackUtil>();
+
+        for (int i = 0; i < 36; i++) {
+            items.add(new ItemStackUtil(getItemStack(i), i));
+        }
+
+        return items;
+    }
+
+    public static class ItemStackUtil {
+        public ItemStack itemStack;
+        public int slotId;
+
+        public ItemStackUtil(ItemStack itemStack, int slotId) {
+            this.itemStack = itemStack;
+            this.slotId = slotId;
         }
     }
 }
