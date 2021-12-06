@@ -89,7 +89,7 @@ public class CrystalAura extends Module {
         placedCrystal.clear();
     }
 
-    public void onUpdate() {
+    public void Update() {
         if (mc.player == null && mc.world == null) return;
 
         findNewTarget();
