@@ -4,10 +4,9 @@ import me.muffin.oyveyplus.api.wrapper.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 
 public class RotationUtil
         implements Wrapper {

@@ -28,11 +28,11 @@ public class RenderUtil implements Wrapper {
     private static final FloatBuffer projection = BufferUtils.createFloatBuffer(16);
     public static RenderItem itemRender = mc.getRenderItem();
     public static ICamera camera = new Frustum();
-    private static boolean depth = GL11.glIsEnabled(2896);
-    private static boolean texture = GL11.glIsEnabled(3042);
-    private static boolean clean = GL11.glIsEnabled(3553);
-    private static boolean bind = GL11.glIsEnabled(2929);
-    private static boolean override = GL11.glIsEnabled(2848);
+    private static final boolean depth = GL11.glIsEnabled(2896);
+    private static final boolean texture = GL11.glIsEnabled(3042);
+    private static final boolean clean = GL11.glIsEnabled(3553);
+    private static final boolean bind = GL11.glIsEnabled(2929);
+    private static final boolean override = GL11.glIsEnabled(2848);
 
     public static void drawGradientBlockOutline(BlockPos pos, Color startColor, Color endColor, float linewidth, double height) {
         IBlockState iblockstate = mc.world.getBlockState(pos);

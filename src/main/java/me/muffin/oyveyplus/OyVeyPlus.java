@@ -2,16 +2,20 @@ package me.muffin.oyveyplus;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-
 import me.muffin.oyveyplus.api.command.CommandManager;
 import me.muffin.oyveyplus.api.event.EventHandler;
-import me.muffin.oyveyplus.api.event.events.*;
+import me.muffin.oyveyplus.api.event.events.EventKey;
+import me.muffin.oyveyplus.api.event.events.EventTick;
+import me.muffin.oyveyplus.api.event.events.Render3DEvent;
+import me.muffin.oyveyplus.api.friends.FriendManager;
 import me.muffin.oyveyplus.api.manager.InventoryManager;
 import me.muffin.oyveyplus.api.manager.PositionManager;
 import me.muffin.oyveyplus.api.manager.TextManager;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.module.ModuleManager;
+import me.muffin.oyveyplus.api.settings.SettingManager;
 import me.muffin.oyveyplus.api.utils.advanced.Renderer;
+import me.muffin.oyveyplus.api.wrapper.Wrapper;
 import me.muffin.oyveyplus.impl.gui.click.ClickGui;
 import me.muffin.oyveyplus.impl.gui.click.hud.HUDEditor;
 import me.muffin.oyveyplus.impl.gui.click.hud.HudComponentManager;
@@ -26,9 +30,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.lwjgl.input.Keyboard;
-import me.muffin.oyveyplus.api.friends.FriendManager;
-import me.muffin.oyveyplus.api.settings.SettingManager;
-import me.muffin.oyveyplus.api.wrapper.Wrapper;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class OyVeyPlus implements Wrapper {
 
     public static final EventBus EVENTBUS = new EventBus();
 
-    private ArrayList<Module> modules = new ArrayList<>();
+    private final ArrayList<Module> modules = new ArrayList<>();
     private Module module;
 
     public static FriendManager friendManager;

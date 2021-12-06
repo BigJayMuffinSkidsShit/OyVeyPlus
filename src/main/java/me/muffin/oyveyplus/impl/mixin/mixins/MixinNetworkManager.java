@@ -1,19 +1,17 @@
 package me.muffin.oyveyplus.impl.mixin.mixins;
 
-import java.io.IOException;
-
+import io.netty.channel.ChannelHandlerContext;
 import me.muffin.oyveyplus.api.event.events.EventNetworkPacketEvent;
 import me.muffin.oyveyplus.api.event.events.PacketEvent;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraftforge.common.MinecraftForge;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import io.netty.channel.ChannelHandlerContext;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import java.io.IOException;
 
 @Mixin(NetworkManager.class)
 public class MixinNetworkManager {

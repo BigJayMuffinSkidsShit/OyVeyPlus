@@ -1,10 +1,10 @@
 package me.muffin.oyveyplus.impl.modules.client;
 
+import me.muffin.oyveyplus.OyVeyPlus;
 import me.muffin.oyveyplus.api.module.Module;
+import me.muffin.oyveyplus.api.settings.Setting;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
-import me.muffin.oyveyplus.OyVeyPlus;
-import me.muffin.oyveyplus.api.settings.Setting;
 
 public class Gui extends Module {
     public static Gui instance;

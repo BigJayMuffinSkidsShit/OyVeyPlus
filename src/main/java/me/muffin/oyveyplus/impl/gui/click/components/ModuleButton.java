@@ -10,7 +10,6 @@ import me.muffin.oyveyplus.impl.gui.click.components.settings.ModeButton;
 import me.muffin.oyveyplus.impl.gui.click.components.settings.SliderButton;
 import net.minecraft.client.Minecraft;
 
-
 import java.awt.*;
 import java.util.ArrayList;
 

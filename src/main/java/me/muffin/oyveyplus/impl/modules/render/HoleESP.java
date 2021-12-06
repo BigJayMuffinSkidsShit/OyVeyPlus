@@ -31,7 +31,7 @@ public class HoleESP extends Module {
     public Setting<Double> blue = this.register("Blue",0,0,255,0);
     public Setting<Double> alpha = this.register("Aplha",180,0,255,0);
     private static HoleESP INSTANCE = new HoleESP();
-    private int currentAlpha = 0;
+    private final int currentAlpha = 0;
     static int delay;
     public HoleESP() {
         super("HoleESP", "Shows safe spots.", Category.Render);

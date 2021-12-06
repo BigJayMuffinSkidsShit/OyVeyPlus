@@ -2,11 +2,11 @@ package me.muffin.oyveyplus.impl.modules.world;
 
 import com.mojang.authlib.GameProfile;
 import me.muffin.oyveyplus.api.module.Module;
+import me.muffin.oyveyplus.api.settings.Setting;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.world.GameType;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-import me.muffin.oyveyplus.api.settings.Setting;
 
 import java.util.UUID;
 

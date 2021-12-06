@@ -5,12 +5,12 @@
   "refmap": "mixins.oyvey.refmap.json",
   "minVersion": "0.7.4",
   "mixins": [
-    "accessors.AccessorCPacketUseEntity",
-    "accessors.IC00Handshake",
-    "accessors.IServerAddress",
-    "accessors.AccessorKeybinding",
     "IEntity",
     "IEntityLivingBase",
-    "MixinNetworkManager"
+    "MixinNetworkManager",
+    "accessors.AccessorCPacketUseEntity",
+    "accessors.AccessorKeybinding",
+    "accessors.IC00Handshake",
+    "accessors.IServerAddress"
   ]
 }

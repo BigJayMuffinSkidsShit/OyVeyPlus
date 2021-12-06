@@ -1,8 +1,8 @@
 package me.muffin.oyveyplus.api.utils;
 
-import java.util.Set;
-
 import org.reflections.Reflections;
+
+import java.util.Set;
 
 public class ClassFinder {
 

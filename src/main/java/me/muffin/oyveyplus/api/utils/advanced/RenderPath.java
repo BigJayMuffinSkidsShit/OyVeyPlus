@@ -1,9 +1,9 @@
 package me.muffin.oyveyplus.api.utils.advanced;
 
-import java.awt.Color;
-import java.util.ArrayList;
-
 import net.minecraft.util.math.BlockPos;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class RenderPath {
 	public static ArrayList<BlockPos> path = new ArrayList <>();

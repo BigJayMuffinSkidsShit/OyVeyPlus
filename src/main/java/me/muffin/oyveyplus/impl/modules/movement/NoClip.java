@@ -3,7 +3,6 @@ package me.muffin.oyveyplus.impl.modules.movement;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import me.muffin.oyveyplus.api.module.Module;
-import me.muffin.oyveyplus.api.module.Module.Category;
 import me.muffin.oyveyplus.api.settings.Setting;
 import me.muffin.oyveyplus.api.utils.NoClipData;
 import net.minecraft.client.Minecraft;

@@ -2,10 +2,14 @@ package me.muffin.oyveyplus.impl.modules.combat;
 
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
-import me.muffin.oyveyplus.api.utils.*;
+import me.muffin.oyveyplus.api.utils.BlockUtil;
+import me.muffin.oyveyplus.api.utils.EntityUtil;
+import me.muffin.oyveyplus.api.utils.PlayerUtil;
+import me.muffin.oyveyplus.api.utils.Timer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -27,14 +31,14 @@ public class Surround extends Module {
     private final Map<BlockPos, Integer> retries = new HashMap <>();
     private int isSafe;
     private BlockPos startPos;
-    private boolean didPlace = false;
+    private final boolean didPlace = false;
     private boolean switchedItem;
     private int lastHotbarSlot;
     private boolean isSneaking;
-    private int placements = 0;
-    private int extenders = 1;
-    private int obbySlot = -1;
-    private boolean offHand = false;
+    private final int placements = 0;
+    private final int extenders = 1;
+    private final int obbySlot = -1;
+    private final boolean offHand = false;
 
     @Override
     public void onEnable() {

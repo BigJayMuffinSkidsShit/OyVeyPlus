@@ -4,12 +4,13 @@
 
 package me.muffin.oyveyplus.impl.gui.click.particle;
 
-import java.util.*;
-
 import me.muffin.oyveyplus.impl.gui.click.ClickGui;
-import org.lwjgl.opengl.*;
-import net.minecraft.client.*;
-import org.lwjgl.input.*;
+import net.minecraft.client.Minecraft;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParticleSystem
 {

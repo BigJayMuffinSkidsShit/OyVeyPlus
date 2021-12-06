@@ -1,7 +1,7 @@
 package me.muffin.oyveyplus.impl.commands;
 
-import me.muffin.oyveyplus.api.command.Command;
 import me.muffin.oyveyplus.OyVeyPlus;
+import me.muffin.oyveyplus.api.command.Command;
 import me.muffin.oyveyplus.api.utils.MessageUtil;
 
 /**

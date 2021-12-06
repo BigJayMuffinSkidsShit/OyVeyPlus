@@ -1,5 +1,8 @@
 package me.muffin.oyveyplus.api.utils.advanced;
 
+import me.muffin.oyveyplus.OyVeyPlus;
+import me.muffin.oyveyplus.api.utils.ColorUtil;
+import me.muffin.oyveyplus.api.utils.EntityUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -24,26 +27,13 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.glu.Sphere;
 
-
-
-import me.muffin.oyveyplus.OyVeyPlus;
-import me.muffin.oyveyplus.api.utils.ColorUtil;
-import me.muffin.oyveyplus.api.utils.EntityUtil;
-
-import static org.lwjgl.opengl.GL11.GL_LINE_SMOOTH;
-import static org.lwjgl.opengl.GL11.GL_LINE_SMOOTH_HINT;
-import static org.lwjgl.opengl.GL11.GL_LINE_STRIP;
-import static org.lwjgl.opengl.GL11.GL_NICEST;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glHint;
-import static org.lwjgl.opengl.GL11.glLineWidth;
-
 import java.awt.*;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Objects;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class RenderUtil {
 	 private static final Frustum frustrum = new Frustum();

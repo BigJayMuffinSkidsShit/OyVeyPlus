@@ -1,6 +1,5 @@
 package me.muffin.oyveyplus.api.utils;
 
-import java.util.ArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,8 +10,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 
+import java.util.ArrayList;
+
 public class PlayerUtil{
-	private static PlayerUtil playerUtil = new PlayerUtil();
+	private static final PlayerUtil playerUtil = new PlayerUtil();
 	static Minecraft mc = Minecraft.getMinecraft();
 	
 	

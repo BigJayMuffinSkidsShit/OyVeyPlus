@@ -68,11 +68,7 @@ public class BlockUtil implements Wrapper {
     			a++;
     		}
     	}
-    	if(a==4)
-    	{
-    		return true;
-    	}
-		return false;
+        return a == 4;
 
     }
     

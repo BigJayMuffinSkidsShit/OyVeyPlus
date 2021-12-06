@@ -4,9 +4,10 @@
 
 package me.muffin.oyveyplus.impl.gui.click.particle;
 
-import org.lwjgl.util.vector.*;
-import java.util.*;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector2f;
+
+import java.util.Random;
 
 public class Particle
 {

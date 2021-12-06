@@ -1,8 +1,8 @@
 package me.muffin.oyveyplus.api.command;
 
-import net.minecraft.util.text.TextFormatting;
 import me.muffin.oyveyplus.api.utils.MessageUtil;
 import me.muffin.oyveyplus.impl.commands.PrefixCommand;
+import net.minecraft.util.text.TextFormatting;
 
 import java.util.*;
 

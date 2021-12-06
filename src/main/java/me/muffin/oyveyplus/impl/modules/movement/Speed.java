@@ -1,13 +1,12 @@
 package me.muffin.oyveyplus.impl.modules.movement;
 
-import com.google.common.eventbus.Subscribe;
-import net.minecraft.init.MobEffects;
-import net.minecraft.network.play.server.SPacketPlayerPosLook;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import me.muffin.oyveyplus.api.event.events.EventMove;
 import me.muffin.oyveyplus.api.event.events.EventPacket;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
+import net.minecraft.init.MobEffects;
+import net.minecraft.network.play.server.SPacketPlayerPosLook;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Objects;
 

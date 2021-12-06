@@ -38,7 +38,7 @@ public class AutoTrap extends Module {
     private int lastHotbarSlot;
     private int placements = 0;
     private BlockPos startPos = null;
-    private boolean offHand = false;
+    private final boolean offHand = false;
     @Override
     public void onEnable() {
         startPos = EntityUtil.getRoundedBlockPos(AutoTrap.mc.player);

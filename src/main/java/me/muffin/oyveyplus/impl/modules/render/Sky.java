@@ -9,10 +9,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.awt.*;
 
 public class Sky extends Module {
-    private Setting<Double> red = register("Red", 255, 0, 255,0);
-    private Setting<Double> green = register("Green", 255, 0, 255,0);
-    private Setting<Double> blue = register("Blue", 255, 0, 255,0);
-    private Setting<Boolean> rainbow = register("Rainbow", true);
+    private final Setting<Double> red = register("Red", 255, 0, 255,0);
+    private final Setting<Double> green = register("Green", 255, 0, 255,0);
+    private final Setting<Double> blue = register("Blue", 255, 0, 255,0);
+    private final Setting<Boolean> rainbow = register("Rainbow", true);
 
     private static Sky INSTANCE = new Sky();
 

@@ -1,13 +1,15 @@
 package me.muffin.oyveyplus.api.event;
 
-import me.muffin.oyveyplus.api.event.events.*;
+import me.muffin.oyveyplus.OyVeyPlus;
+import me.muffin.oyveyplus.api.event.events.EventKey;
+import me.muffin.oyveyplus.api.event.events.EventRenderWorldLast;
+import me.muffin.oyveyplus.api.event.events.EventTick;
+import me.muffin.oyveyplus.api.wrapper.Wrapper;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
-import me.muffin.oyveyplus.OyVeyPlus;
-import me.muffin.oyveyplus.api.wrapper.Wrapper;
 
 public class EventHandler implements Wrapper {
 

@@ -17,7 +17,7 @@ public class ClickGui extends GuiScreen {
     public static List<me.muffin.oyveyplus.impl.gui.click.Frame> frames;
     public static Color color;
     private final ParticleSystem particleSystem;
-    private ArrayList<Component> components = new ArrayList<>();
+    private final ArrayList<Component> components = new ArrayList<>();
 
     public ClickGui() {
         this.particleSystem = new ParticleSystem(100);
