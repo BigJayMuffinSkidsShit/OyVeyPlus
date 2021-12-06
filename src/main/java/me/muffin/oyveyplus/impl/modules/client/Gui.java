@@ -33,12 +33,12 @@ public class Gui extends Module {
    
     @Override
     public void onEnable() {
+        setEnabled(false);
         mc.displayGuiScreen(OyVeyPlus.gui);
         if (this.blur.getValue) {
             mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
 
         }
-        disable();
     }
 
     @Override
