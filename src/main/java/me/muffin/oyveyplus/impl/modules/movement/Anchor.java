@@ -5,7 +5,6 @@ import me.muffin.oyveyplus.api.settings.Setting;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public
 class Anchor
@@ -61,7 +60,7 @@ class Anchor
         return new Vec3d(d4, d5, d6);
     }
 
-    @SubscribeEvent
+    @Override
     public
     void onUpdate() {
         if (this.mc.world == null) {
