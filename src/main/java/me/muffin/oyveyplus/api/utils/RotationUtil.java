@@ -61,7 +61,7 @@ public class RotationUtil
     }
 
     public static boolean isInFov(final BlockPos pos) {
-        return pos != null && (RotationUtil.mc.player.getDistanceSq(pos) < 4.0 || isInFov(new Vec3d((Vec3i)pos), RotationUtil.mc.player.getPositionVector()));
+        return pos != null && (RotationUtil.mc.player.getDistanceSq(pos) < 4.0 || isInFov(new Vec3d(pos), RotationUtil.mc.player.getPositionVector()));
     }
 
     public static boolean isInFov(final Entity entity) {

@@ -3,6 +3,7 @@
   "compatibilityLevel": "JAVA_8",
   "package": "me.muffin.oyveyplus.impl.mixin.mixins",
   "refmap": "mixins.oyvey.refmap.json",
+  "minVersion": "0.7.4",
   "mixins": [
     "accessors.AccessorCPacketUseEntity",
     "accessors.IC00Handshake",
@@ -11,6 +12,5 @@
     "IEntity",
     "IEntityLivingBase",
     "MixinNetworkManager"
-  ],
-  "client": []
+  ]
 }

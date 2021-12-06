@@ -1,6 +1,5 @@
 package me.muffin.oyveyplus.impl.gui.click.hud;
 
-import me.muffin.oyveyplus.impl.gui.click.Component;
 import me.muffin.oyveyplus.impl.gui.click.hud.components.WaterMark;
 
 import java.util.ArrayList;

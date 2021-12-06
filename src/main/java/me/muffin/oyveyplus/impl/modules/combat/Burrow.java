@@ -5,7 +5,6 @@ import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
 import me.muffin.oyveyplus.api.utils.BlockUtil;
 import me.muffin.oyveyplus.api.utils.InventoryUtil;
-import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.BlockObsidian;
 import net.minecraft.entity.Entity;

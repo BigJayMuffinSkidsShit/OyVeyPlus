@@ -1,13 +1,10 @@
 package me.muffin.oyveyplus.impl.gui.click.hud;
 
 import me.muffin.oyveyplus.OyVeyPlus;
-import me.muffin.oyveyplus.api.module.ModuleManager;
 import me.muffin.oyveyplus.api.utils.ColorUtil;
 import me.muffin.oyveyplus.impl.gui.click.ClickGui;
 import me.muffin.oyveyplus.impl.modules.client.Gui;
 import net.minecraft.client.gui.GuiScreen;
-
-import java.awt.*;
 
 public class HUDEditor extends GuiScreen
 {

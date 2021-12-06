@@ -275,7 +275,8 @@ public class RenderUtil {
 
 	    public static boolean isInViewFrustrum(AxisAlignedBB bb) {
 	        Entity current = Minecraft.getMinecraft().getRenderViewEntity();
-	        frustrum.setPosition(current.posX, current.posY, current.posZ);
+			assert current != null;
+			frustrum.setPosition(current.posX, current.posY, current.posZ);
 	        return frustrum.isBoundingBoxInFrustum(bb);
 	    }
 
@@ -337,10 +338,10 @@ public class RenderUtil {
 	        Tessellator tessellator = Tessellator.getInstance();
 	        BufferBuilder BufferBuilder2 = tessellator.getBuffer();
 	        BufferBuilder2.begin(7, DefaultVertexFormats.POSITION_TEX);
-	        BufferBuilder2.pos(x + 0, y + height, zLevel).tex((float) (textureX + 0) * 0.00390625f, (float) (textureY + height) * 0.00390625f).endVertex();
+	        BufferBuilder2.pos(x, y + height, zLevel).tex((float) (textureX) * 0.00390625f, (float) (textureY + height) * 0.00390625f).endVertex();
 	        BufferBuilder2.pos(x + width, y + height, zLevel).tex((float) (textureX + width) * 0.00390625f, (float) (textureY + height) * 0.00390625f).endVertex();
-	        BufferBuilder2.pos(x + width, y + 0, zLevel).tex((float) (textureX + width) * 0.00390625f, (float) (textureY + 0) * 0.00390625f).endVertex();
-	        BufferBuilder2.pos(x + 0, y + 0, zLevel).tex((float) (textureX + 0) * 0.00390625f, (float) (textureY + 0) * 0.00390625f).endVertex();
+	        BufferBuilder2.pos(x + width, y, zLevel).tex((float) (textureX + width) * 0.00390625f, (float) (textureY) * 0.00390625f).endVertex();
+	        BufferBuilder2.pos(x, y, zLevel).tex((float) (textureX) * 0.00390625f, (float) (textureY) * 0.00390625f).endVertex();
 	        tessellator.draw();
 	    }
 

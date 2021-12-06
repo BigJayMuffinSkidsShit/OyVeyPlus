@@ -12,7 +12,7 @@ public class ColorUtil
     public ColorUtil(final int i, final int i1, final int i2, final int i3) {
     }
     public static void color(int color) {
-        GL11.glColor4f((float)((float)(color >> 16 & 0xFF) / 255.0f), (float)((float)(color >> 8 & 0xFF) / 255.0f), (float)((float)(color & 0xFF) / 255.0f), (float)((float)(color >> 24 & 0xFF) / 255.0f));
+        GL11.glColor4f((float)(color >> 16 & 0xFF) / 255.0f, (float)(color >> 8 & 0xFF) / 255.0f, (float)(color & 0xFF) / 255.0f, (float)(color >> 24 & 0xFF) / 255.0f);
     }
     public static int shadeColour(int color, int precent) {
         int r = (((color & 0xFF0000) >> 16) * (100 + precent) / 100);

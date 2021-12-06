@@ -42,7 +42,7 @@ public class KillAura extends Module {
             target = null;
             return;
         }
-        int wait = !delay.getValue() ? 0 : (int) (DamageUtil.getCooldownByWeapon(mc.player));
+        int wait = !delay.getValue() ? 0 : DamageUtil.getCooldownByWeapon(mc.player);
         if (!timer.passedMs(wait))
             return;
         target = getTarget();
@@ -56,7 +56,7 @@ public class KillAura extends Module {
         Entity target = null;
         double distance = range.getValue().floatValue();
         double maxHealth = 36.0D;
-        for (Entity entity : mc.world.playerEntities) {
+        for (EntityPlayer entity : mc.world.playerEntities) {
             if (((!players.getValue() || !(entity instanceof EntityPlayer)) && (!animals.getValue() || !EntityUtil.isPassive(entity)) && (!mobs.getValue() || !EntityUtil.isMobAggressive(entity)) && (!vehicles.getValue() || !EntityUtil.isVehicle(entity)) && (!projectiles.getValue() || !EntityUtil.isProjectile(entity))) || (entity instanceof net.minecraft.entity.EntityLivingBase &&
                     EntityUtil.isntValid(entity, distance)))
                 continue;
@@ -68,7 +68,7 @@ public class KillAura extends Module {
                 maxHealth = EntityUtil.getHealth(entity);
                 continue;
             }
-            if (entity instanceof EntityPlayer && DamageUtil.isArmorLow((EntityPlayer) entity, 18)) {
+            if (entity instanceof EntityPlayer && DamageUtil.isArmorLow(entity, 18)) {
                 target = entity;
                 break;
             }

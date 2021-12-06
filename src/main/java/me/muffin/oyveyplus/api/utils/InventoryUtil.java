@@ -122,7 +122,7 @@ public class InventoryUtil
         return ints;
     }
     public static List<Integer> findEmptySlots(boolean withXCarry) {
-        ArrayList<Integer> outPut = new ArrayList<Integer>();
+        ArrayList<Integer> outPut = new ArrayList <>();
         for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
             if (!entry.getValue().isEmpty() && entry.getValue().getItem() != Items.AIR) continue;
             outPut.add(entry.getKey());
@@ -168,7 +168,7 @@ public class InventoryUtil
     }
 
     private static Map<Integer, ItemStack> getInventorySlots(int currentI, int last) {
-        HashMap<Integer, ItemStack> fullInventorySlots = new HashMap<Integer, ItemStack>();
+        HashMap<Integer, ItemStack> fullInventorySlots = new HashMap <>();
         for (int current = currentI; current <= last; ++current) {
             fullInventorySlots.put(current, InventoryUtil.mc.player.inventoryContainer.getInventory().get(current));
         }

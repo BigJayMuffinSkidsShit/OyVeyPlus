@@ -2,11 +2,8 @@ package me.muffin.oyveyplus.impl.gui.click.components.settings;
 
 import me.muffin.oyveyplus.OyVeyPlus;
 import me.muffin.oyveyplus.api.settings.Setting;
-import me.muffin.oyveyplus.impl.gui.click.ClickGui;
 import me.muffin.oyveyplus.impl.gui.click.Component;
 import me.muffin.oyveyplus.impl.gui.click.components.ModuleButton;
-import me.muffin.oyveyplus.impl.gui.click.hud.HUDEditor;
-import me.muffin.oyveyplus.impl.gui.click.hud.HudComponent;
 import net.minecraft.client.Minecraft;
 
 import java.awt.*;

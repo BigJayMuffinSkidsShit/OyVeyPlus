@@ -1,6 +1,5 @@
 package me.muffin.oyveyplus.impl.modules.world;
 
-import me.muffin.oyveyplus.OyVeyPlus;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
 import net.minecraft.network.login.server.SPacketDisconnect;
@@ -27,7 +26,7 @@ public class AutoLog extends Module {
         if (AutoLog.mc.player.getHealth() <= this.health.getValue().floatValue()) {
             disable();
             AutoLog.mc.player.connection.sendPacket(new SPacketDisconnect(new TextComponentString("AutoLogged")));
-            if (this.logout.getValue().booleanValue()) {
+            if (this.logout.getValue()) {
                 this.disable();
             }
         }

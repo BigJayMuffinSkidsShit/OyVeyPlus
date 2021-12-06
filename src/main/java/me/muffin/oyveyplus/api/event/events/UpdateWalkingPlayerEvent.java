@@ -1,6 +1,5 @@
 package me.muffin.oyveyplus.api.event.events;
 
-import me.muffin.oyveyplus.api.event.Event;
 import me.muffin.oyveyplus.api.event.EventStage;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 

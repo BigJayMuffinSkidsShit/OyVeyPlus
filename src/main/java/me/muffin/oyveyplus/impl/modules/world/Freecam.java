@@ -14,8 +14,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class Freecam extends Module {
     private static Freecam INSTANCE = new Freecam();
-    public Setting<Double> speed = register("Speed", Double.valueOf(0.5D), Double.valueOf(0.1D), Double.valueOf(5.0D),1);
-    public Setting<Boolean> packet = register("Cancel Packets", Boolean.valueOf(true));
+    public Setting<Double> speed = register("Speed", 0.5D, 0.1D, 5.0D,1);
+    public Setting<Boolean> packet = register("Cancel Packets", Boolean.TRUE);
 
     private double posX, posY, posZ;
     private float pitch, yaw;
@@ -99,7 +99,7 @@ public class Freecam extends Module {
     @SubscribeEvent
     public void onMove(MoveEvent event) {
         mc.player.noClip = true;
-    };
+    }
 
     @SubscribeEvent
     public void onPlayerPushOutOfBlock(PlayerSPPushOutOfBlocksEvent event) {
@@ -111,6 +111,6 @@ public class Freecam extends Module {
         if ((event.getPacket() instanceof CPacketPlayer || event.getPacket() instanceof CPacketInput) && packet.getValue()) {
             event.setCanceled(true);
         }
-    };
+    }
 
 }

@@ -18,7 +18,7 @@ public class ColourUtils {
      * Initialize the color list that we have.
      */
     private ArrayList<ColorName> initColorList() {
-        ArrayList<ColorName> colorList = new ArrayList<ColorName>();
+        ArrayList<ColorName> colorList = new ArrayList <>();
         colorList.add(new ColorName("AliceBlue", 0xF0, 0xF8, 0xFF));
         colorList.add(new ColorName("AntiqueWhite", 0xFA, 0xEB, 0xD7));
         colorList.add(new ColorName("Aqua", 0x00, 0xFF, 0xFF));
@@ -222,7 +222,8 @@ public class ColourUtils {
         return getColorNameFromRgb(color.getRed(), color.getGreen(),
                 color.getBlue());
     }
-    public class ColorName {
+    public static
+    class ColorName {
 
         public int r, g, b;
         public String name;
@@ -235,8 +236,8 @@ public class ColourUtils {
         }
 
         public int computeMSE(int pixR, int pixG, int pixB) {
-            return (int) (((pixR - r) * (pixR - r) + (pixG - g) * (pixG - g) + (pixB - b)
-                    * (pixB - b)) / 3);
+            return ((pixR - r) * (pixR - r) + (pixG - g) * (pixG - g) + (pixB - b)
+                    * (pixB - b)) / 3;
         }
 
         public int getR() {
@@ -257,7 +258,7 @@ public class ColourUtils {
     }
 
     public static int toRGBA(int r, int g, int b, int a) {
-        return (r << 16) + (g << 8) + (b << 0) + (a << 24);
+        return (r << 16) + (g << 8) + (b) + (a << 24);
     }
 
     public static int toRGBA(float r, float g, float b, float a) {
@@ -294,7 +295,8 @@ public class ColourUtils {
         public final static int RAINBOW = Integer.MIN_VALUE;
     }
 
-    public static final int changeAlpha(int origColor, int userInputedAlpha) {
+    public static
+    int changeAlpha(int origColor, int userInputedAlpha) {
         origColor = origColor & 0x00ffffff; //drop the previous alpha value
         return (userInputedAlpha << 24) | origColor; //add the one the user inputted
     }

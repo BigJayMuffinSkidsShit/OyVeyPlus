@@ -261,9 +261,9 @@ public class EntityUtil implements Wrapper {
         double posY = entity.posY;
         double n = b ? 0.03 : (entity instanceof EntityPlayer ? 0.2 : 0.5);
         double n2 = posY - n;
-        for (int i = MathHelper.floor((double)entity.posX); i < MathHelper.ceil((double)entity.posX); ++i) {
-            for (int j = MathHelper.floor((double)entity.posZ); j < MathHelper.ceil((double)entity.posZ); ++j) {
-                if (!(EntityUtil.mc.world.getBlockState(new BlockPos(i, MathHelper.floor((double)n2), j)).getBlock() instanceof BlockLiquid)) continue;
+        for (int i = MathHelper.floor(entity.posX); i < MathHelper.ceil(entity.posX); ++i) {
+            for (int j = MathHelper.floor(entity.posZ); j < MathHelper.ceil(entity.posZ); ++j) {
+                if (!(EntityUtil.mc.world.getBlockState(new BlockPos(i, MathHelper.floor(n2), j)).getBlock() instanceof BlockLiquid)) continue;
                 return true;
             }
         }
@@ -275,8 +275,8 @@ public class EntityUtil implements Wrapper {
             return false;
         }
         double n = entity.posY + 0.01;
-        for (int i = MathHelper.floor((double)entity.posX); i < MathHelper.ceil((double)entity.posX); ++i) {
-            for (int j = MathHelper.floor((double)entity.posZ); j < MathHelper.ceil((double)entity.posZ); ++j) {
+        for (int i = MathHelper.floor(entity.posX); i < MathHelper.ceil(entity.posX); ++i) {
+            for (int j = MathHelper.floor(entity.posZ); j < MathHelper.ceil(entity.posZ); ++j) {
                 if (!(EntityUtil.mc.world.getBlockState(new BlockPos(i, (int)n, j)).getBlock() instanceof BlockLiquid)) continue;
                 return true;
             }
@@ -291,8 +291,8 @@ public class EntityUtil implements Wrapper {
         AxisAlignedBB bb = EntityUtil.mc.player.getRidingEntity() != null ? EntityUtil.mc.player.getRidingEntity().getEntityBoundingBox().contract(0.0, 0.0, 0.0).offset(0.0, -offset, 0.0) : EntityUtil.mc.player.getEntityBoundingBox().contract(0.0, 0.0, 0.0).offset(0.0, -offset, 0.0);
         boolean onLiquid = false;
         int y = (int)bb.minY;
-        for (int x = MathHelper.floor((double)bb.minX); x < MathHelper.floor((double)(bb.maxX + 1.0)); ++x) {
-            for (int z = MathHelper.floor((double)bb.minZ); z < MathHelper.floor((double)(bb.maxZ + 1.0)); ++z) {
+        for (int x = MathHelper.floor(bb.minX); x < MathHelper.floor(bb.maxX + 1.0); ++x) {
+            for (int z = MathHelper.floor(bb.minZ); z < MathHelper.floor(bb.maxZ + 1.0); ++z) {
                 Block block = EntityUtil.mc.world.getBlockState(new BlockPos(x, y, z)).getBlock();
                 if (block == Blocks.AIR) continue;
                 if (!(block instanceof BlockLiquid)) {
@@ -306,9 +306,9 @@ public class EntityUtil implements Wrapper {
 
     public static boolean isOnLiquid() {
         double y = EntityUtil.mc.player.posY - 0.03;
-        for (int x = MathHelper.floor((double)EntityUtil.mc.player.posX); x < MathHelper.ceil((double)EntityUtil.mc.player.posX); ++x) {
-            for (int z = MathHelper.floor((double)EntityUtil.mc.player.posZ); z < MathHelper.ceil((double)EntityUtil.mc.player.posZ); ++z) {
-                BlockPos pos = new BlockPos(x, MathHelper.floor((double)y), z);
+        for (int x = MathHelper.floor(EntityUtil.mc.player.posX); x < MathHelper.ceil(EntityUtil.mc.player.posX); ++x) {
+            for (int z = MathHelper.floor(EntityUtil.mc.player.posZ); z < MathHelper.ceil(EntityUtil.mc.player.posZ); ++z) {
+                BlockPos pos = new BlockPos(x, MathHelper.floor(y), z);
                 if (!(EntityUtil.mc.world.getBlockState(pos).getBlock() instanceof BlockLiquid)) continue;
                 return true;
             }
@@ -323,8 +323,8 @@ public class EntityUtil implements Wrapper {
         boolean inLiquid = false;
         AxisAlignedBB bb = EntityUtil.mc.player.getRidingEntity() != null ? EntityUtil.mc.player.getRidingEntity().getEntityBoundingBox() : EntityUtil.mc.player.getEntityBoundingBox();
         int y = (int)bb.minY;
-        for (int x = MathHelper.floor((double)bb.minX); x < MathHelper.floor((double)bb.maxX) + 1; ++x) {
-            for (int z = MathHelper.floor((double)bb.minZ); z < MathHelper.floor((double)bb.maxZ) + 1; ++z) {
+        for (int x = MathHelper.floor(bb.minX); x < MathHelper.floor(bb.maxX) + 1; ++x) {
+            for (int z = MathHelper.floor(bb.minZ); z < MathHelper.floor(bb.maxZ) + 1; ++z) {
                 Block block = EntityUtil.mc.world.getBlockState(new BlockPos(x, y, z)).getBlock();
                 if (block instanceof BlockAir) continue;
                 if (!(block instanceof BlockLiquid)) {
@@ -370,8 +370,8 @@ public class EntityUtil implements Wrapper {
 
     public static double getBaseMoveSpeed() {
         double baseSpeed = 0.2873;
-        if (mc.player != null && mc.player.isPotionActive(Potion.getPotionById(1))) {
-            final int amplifier = mc.player.getActivePotionEffect(Potion.getPotionById(1)).getAmplifier();
+        if (mc.player != null && mc.player.isPotionActive(Objects.requireNonNull(Potion.getPotionById(1)))) {
+            final int amplifier = Objects.requireNonNull(Objects.requireNonNull(mc.player.getActivePotionEffect(Potion.getPotionById(1)))).getAmplifier();
             baseSpeed *= 1.0 + 0.2 * (amplifier + 1);
         }
         return baseSpeed;
@@ -447,7 +447,7 @@ public class EntityUtil implements Wrapper {
     }
 
     public static List<Vec3d> getUnsafeBlocksFromVec3d(Vec3d pos, int height, boolean floor) {
-        ArrayList<Vec3d> vec3ds = new ArrayList<Vec3d>();
+        ArrayList<Vec3d> vec3ds = new ArrayList <>();
         for (Vec3d vector : EntityUtil.getOffsets(height, floor)) {
             BlockPos targetPos = new BlockPos(pos).add(vector.x, vector.y, vector.z);
             Block block = EntityUtil.mc.world.getBlockState(targetPos).getBlock();
@@ -522,7 +522,7 @@ public class EntityUtil implements Wrapper {
     }
 
     public static List<Vec3d> getUntrappedBlocks(EntityPlayer player, boolean antiScaffold, boolean antiStep, boolean legs, boolean platform, boolean antiDrop) {
-        ArrayList<Vec3d> vec3ds = new ArrayList<Vec3d>();
+        ArrayList<Vec3d> vec3ds = new ArrayList <>();
         if (!antiStep && EntityUtil.getUnsafeBlocks(player, 2, false).size() == 4) {
             vec3ds.addAll(EntityUtil.getUnsafeBlocks(player, 2, false));
         }
@@ -595,7 +595,7 @@ public class EntityUtil implements Wrapper {
     }
 
     public static List<Vec3d> getUntrappedBlocksExtended(int extension, EntityPlayer player, boolean antiScaffold, boolean antiStep, boolean legs, boolean platform, boolean antiDrop, boolean raytrace) {
-        ArrayList<Vec3d> placeTargets = new ArrayList<Vec3d>();
+        ArrayList<Vec3d> placeTargets = new ArrayList <>();
         if (extension == 1) {
             placeTargets.addAll(EntityUtil.targets(player.getPositionVector(), antiScaffold, antiStep, legs, platform, antiDrop, raytrace));
         } else {
@@ -606,7 +606,7 @@ public class EntityUtil implements Wrapper {
                 ++extend;
             }
         }
-        ArrayList<Vec3d> removeList = new ArrayList<Vec3d>();
+        ArrayList<Vec3d> removeList = new ArrayList <>();
         for (Vec3d vec3d : placeTargets) {
             BlockPos pos = new BlockPos(vec3d);
             if (BlockUtil.isPositionPlaceable(pos, raytrace) != -1) continue;
@@ -619,7 +619,7 @@ public class EntityUtil implements Wrapper {
     }
 
     public static List<Vec3d> targets(Vec3d vec3d, boolean antiScaffold, boolean antiStep, boolean legs, boolean platform, boolean antiDrop, boolean raytrace) {
-        ArrayList<Vec3d> placeTargets = new ArrayList<Vec3d>();
+        ArrayList<Vec3d> placeTargets = new ArrayList <>();
         if (antiDrop) {
             Collections.addAll(placeTargets, BlockUtil.convertVec3ds(vec3d, antiDropOffsetList));
         }
@@ -666,7 +666,7 @@ public class EntityUtil implements Wrapper {
     }
 
     public static List<Vec3d> getOffsetList(int y, boolean floor) {
-        ArrayList<Vec3d> offsets = new ArrayList<Vec3d>();
+        ArrayList<Vec3d> offsets = new ArrayList <>();
         offsets.add(new Vec3d(-1.0, y, 0.0));
         offsets.add(new Vec3d(1.0, y, 0.0));
         offsets.add(new Vec3d(0.0, y, -1.0));
@@ -690,7 +690,7 @@ public class EntityUtil implements Wrapper {
     }
 
     public static List<Vec3d> getTrapOffsetsList(boolean antiScaffold, boolean antiStep, boolean legs, boolean platform, boolean antiDrop) {
-        ArrayList<Vec3d> offsets = new ArrayList<Vec3d>(EntityUtil.getOffsetList(1, false));
+        ArrayList<Vec3d> offsets = new ArrayList <>(EntityUtil.getOffsetList(1, false));
         offsets.add(new Vec3d(0.0, 2.0, 0.0));
         if (antiScaffold) {
             offsets.add(new Vec3d(0.0, 3.0, 0.0));
@@ -712,7 +712,7 @@ public class EntityUtil implements Wrapper {
     }
 
     public static Vec3d[] getHeightOffsets(int min, int max) {
-        ArrayList<Vec3d> offsets = new ArrayList<Vec3d>();
+        ArrayList<Vec3d> offsets = new ArrayList <>();
         for (int i = min; i <= max; ++i) {
             offsets.add(new Vec3d(0.0, i, 0.0));
         }
@@ -935,7 +935,7 @@ public class EntityUtil implements Wrapper {
     }
 
     public static Map<String, Integer> getTextRadarPlayers() {
-        Map<String, Integer> output = new HashMap<String, Integer>();
+        Map<String, Integer> output = new HashMap <>();
         DecimalFormat dfHealth = new DecimalFormat("#.#");
         dfHealth.setRoundingMode(RoundingMode.CEILING);
         DecimalFormat dfDistance = new DecimalFormat("#.#");

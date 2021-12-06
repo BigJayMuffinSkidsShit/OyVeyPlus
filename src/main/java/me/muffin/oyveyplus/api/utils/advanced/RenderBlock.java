@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import net.minecraft.util.math.BlockPos;
 
 public class RenderBlock {
-	public static ArrayList<BlockColor> list1 = new ArrayList<BlockColor>();
-	public static ArrayList<BlockColor> list2 = new ArrayList<BlockColor>();
+	public static ArrayList<BlockColor> list1 = new ArrayList <>();
+	public static ArrayList<BlockColor> list2 = new ArrayList <>();
 	
 	public static void add(BlockPos pos, Color color, float width, int a) {
 		if(a==1)
@@ -21,7 +21,7 @@ public class RenderBlock {
 	}
 	
 	public static void remove(BlockPos pos) {
-		ArrayList<BlockColor> remove = new ArrayList<BlockColor>();
+		ArrayList<BlockColor> remove = new ArrayList <>();
 		for (BlockColor blockColor : list1) {
 			if (blockColor.pos.equals(pos)) {
 				remove.add(blockColor);

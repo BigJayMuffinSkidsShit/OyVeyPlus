@@ -5,7 +5,6 @@ import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.utils.MessageUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +34,6 @@ public class VisualRange extends Module {
                     loadedEntities.add(entity);
                 }
             }
-        }catch (Exception e) {} //So it doesn't crash
+        }catch (Exception ignored) {} //So it doesn't crash
     }
 }

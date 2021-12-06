@@ -44,7 +44,7 @@ public class Velocity extends Module {
         }
 
         if(event.getPacket() instanceof SPacketEntityStatus && bobbers.getValue()) {
-            final SPacketEntityStatus packet = (SPacketEntityStatus) event.getPacket();
+            final SPacketEntityStatus packet = event.getPacket();
             if(packet.getOpCode() == 31) {
                 final Entity entity = packet.getEntity(mc.world);
                 if(entity != null && entity instanceof EntityFishHook) {

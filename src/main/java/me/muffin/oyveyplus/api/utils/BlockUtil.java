@@ -12,23 +12,19 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.*;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.chunk.Chunk;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
@@ -40,7 +36,7 @@ public class BlockUtil implements Wrapper {
 
 	public static ArrayList<BlockPos> getFriends(BlockPos friend)
 	{
-		ArrayList<BlockPos> friends = new ArrayList<BlockPos>();
+		ArrayList<BlockPos> friends = new ArrayList <>();
 		friends.add(new BlockPos(friend.getX()+1, friend.getY(), friend.getZ()));
 		friends.add(new BlockPos(friend.getX()-1, friend.getY(), friend.getZ()));
 		friends.add(new BlockPos(friend.getX(), friend.getY(), friend.getZ()+1));
@@ -77,7 +73,7 @@ public class BlockUtil implements Wrapper {
     		return true;
     	}
 		return false;
-    	
+
     }
     
     public static List<BlockPos> getBlockSphere(float breakRange, Class clazz) {
@@ -91,7 +87,7 @@ public class BlockUtil implements Wrapper {
             final BlockPos neighbor = pos.offset(side);
             final EnumFacing side2 = side.getOpposite();
             final Vec3d hitVec;
-            if (canBeClicked(neighbor) && eyesPos.squareDistanceTo(hitVec = new Vec3d((Vec3i)neighbor).add(0.5, 0.5, 0.5).add(new Vec3d(side2.getDirectionVec()).scale(0.5))) <= 18.0625) {
+            if (canBeClicked(neighbor) && eyesPos.squareDistanceTo(hitVec = new Vec3d(neighbor).add(0.5, 0.5, 0.5).add(new Vec3d(side2.getDirectionVec()).scale(0.5))) <= 18.0625) {
                 BlockUtil.mc.player.swingArm(EnumHand.MAIN_HAND);
                 return;
             }
@@ -100,7 +96,7 @@ public class BlockUtil implements Wrapper {
 
     public static double getNearestBlockBelow() {
         for (double y = BlockUtil.mc.player.posY; y > 0.0; y -= 0.001) {
-            if (BlockUtil.mc.world.getBlockState(new BlockPos(BlockUtil.mc.player.posX, y, BlockUtil.mc.player.posZ)).getBlock() instanceof BlockSlab || BlockUtil.mc.world.getBlockState(new BlockPos(BlockUtil.mc.player.posX, y, BlockUtil.mc.player.posZ)).getBlock().getDefaultState().getCollisionBoundingBox((IBlockAccess)BlockUtil.mc.world, new BlockPos(0, 0, 0)) == null) continue;
+            if (BlockUtil.mc.world.getBlockState(new BlockPos(BlockUtil.mc.player.posX, y, BlockUtil.mc.player.posZ)).getBlock() instanceof BlockSlab || BlockUtil.mc.world.getBlockState(new BlockPos(BlockUtil.mc.player.posX, y, BlockUtil.mc.player.posZ)).getBlock().getDefaultState().getCollisionBoundingBox(BlockUtil.mc.world, new BlockPos(0, 0, 0)) == null) continue;
             return y;
         }
         return -1.0;
@@ -220,7 +216,7 @@ public class BlockUtil implements Wrapper {
     }
 
     public static List<EnumFacing> getPossibleSides(BlockPos pos) {
-        ArrayList<EnumFacing> facings = new ArrayList<EnumFacing>();
+        ArrayList<EnumFacing> facings = new ArrayList <>();
         for (EnumFacing side : EnumFacing.values()) {
             IBlockState blockState;
             BlockPos neighbour = pos.offset(side);
@@ -234,8 +230,7 @@ public class BlockUtil implements Wrapper {
     public static EnumFacing getFirstFacing(BlockPos pos) {
         Iterator<EnumFacing> iterator = BlockUtil.getPossibleSides(pos).iterator();
         if (iterator.hasNext()) {
-            EnumFacing facing = iterator.next();
-            return facing;
+            return iterator.next();
         }
         return null;
     }
@@ -288,6 +283,7 @@ public class BlockUtil implements Wrapper {
     public static void rightClickBlockLegit(BlockPos pos, float range, boolean rotate, EnumHand hand, AtomicDouble Yaw, AtomicDouble Pitch, AtomicBoolean rotating) {
         Vec3d posVec = new Vec3d(pos).add(0.5, 0.5, 0.5);
         Vec3d eyesPos = null;
+        assert eyesPos != null;
         double distanceSqPosVec = eyesPos.squareDistanceTo(posVec);
         for (EnumFacing side : EnumFacing.values()) {
             Vec3d hitVec = posVec.add(new Vec3d(side.getDirectionVec()).scale(0.5));
@@ -323,6 +319,7 @@ public class BlockUtil implements Wrapper {
     public static boolean placeBlockSmartRotate(BlockPos pos, EnumHand hand, boolean rotate, boolean packet, boolean isSneaking) {
         boolean sneaking = false;
         EnumFacing side = BlockUtil.getFirstFacing(pos);
+        assert side != null;
         MessageUtil.instance.addMessage(side.toString(), false);
         if (side == null) {
             return isSneaking;
@@ -358,7 +355,7 @@ public class BlockUtil implements Wrapper {
     }
 
     public static List<BlockPos> getSphere(BlockPos pos, float r, int h, boolean hollow, boolean sphere, int plus_y) {
-        ArrayList<BlockPos> circleblocks = new ArrayList<BlockPos>();
+        ArrayList<BlockPos> circleblocks = new ArrayList <>();
         int cx = pos.getX();
         int cy = pos.getY();
         int cz = pos.getZ();
@@ -468,9 +465,9 @@ public class BlockUtil implements Wrapper {
     public static void placeCrystalOnBlock(final BlockPos pos, final EnumHand hand, final boolean swing, final boolean exactHand) {
         RayTraceResult result = BlockUtil.mc.world.rayTraceBlocks(new Vec3d(BlockUtil.mc.player.posX, BlockUtil.mc.player.posY + BlockUtil.mc.player.getEyeHeight(), BlockUtil.mc.player.posZ), new Vec3d(pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5));
         EnumFacing facing = (result == null || result.sideHit == null) ? EnumFacing.UP : result.sideHit;
-        BlockUtil.mc.player.connection.sendPacket((Packet)new CPacketPlayerTryUseItemOnBlock(pos, facing, hand, 0.0f, 0.0f, 0.0f));
+        BlockUtil.mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, facing, hand, 0.0f, 0.0f, 0.0f));
         if (swing) {
-            BlockUtil.mc.player.connection.sendPacket((Packet)new CPacketAnimation(exactHand ? hand : EnumHand.MAIN_HAND));
+            BlockUtil.mc.player.connection.sendPacket(new CPacketAnimation(exactHand ? hand : EnumHand.MAIN_HAND));
         }
     }
 
@@ -556,7 +553,7 @@ public class BlockUtil implements Wrapper {
 	 * Gets all the BlockPositions in the given radius around the player
 	 */
 	public static List<BlockPos> getAll(int radius) {
-		List<BlockPos> list = new ArrayList<BlockPos>();
+		List<BlockPos> list = new ArrayList <>();
         for (int x = (int) (mc.player.posX - radius); x < mc.player.posX + radius; x++) {
             for (int z = (int) (mc.player.posZ - radius); z < mc.player.posZ + radius; z++) {
                 for (int y = (int) (mc.player.posY + radius); y > mc.player.posY - radius; y--) {
@@ -565,12 +562,7 @@ public class BlockUtil implements Wrapper {
             }
         }
         
-        Collections.sort(list, new Comparator<BlockPos>() {
-            @Override
-            public int compare(BlockPos lhs, BlockPos rhs) {
-                return mc.player.getDistanceSq(lhs) > mc.player.getDistanceSq(rhs) ? 1 : (mc.player.getDistanceSq(lhs) < mc.player.getDistanceSq(rhs)) ? -1 : 0;
-            }
-        });
+        list.sort((lhs, rhs) -> Double.compare(mc.player.getDistanceSq(lhs), mc.player.getDistanceSq(rhs)));
         
         return list;
 	}
@@ -611,7 +603,7 @@ public class BlockUtil implements Wrapper {
     }
 
     public static List<BlockPos> getSphereRealth(final float radius, final boolean ignoreAir) {
-        final List<BlockPos> sphere = new ArrayList<BlockPos>();
+        final List<BlockPos> sphere = new ArrayList <>();
         final BlockPos pos = new BlockPos(BlockUtil.mc.player.getPositionVector());
         final int posX = pos.getX();
         final int posY = pos.getY();
@@ -721,13 +713,12 @@ public class BlockUtil implements Wrapper {
         EnumFacing[] aenumfacing = EnumFacing.values();
         int i = aenumfacing.length;
 
-        for (int j = 0; j < i; ++j) {
-            EnumFacing side = aenumfacing[j];
+        for (EnumFacing side : aenumfacing) {
             IBlockState offsetState = BlockUtil.mc.world.getBlockState(pos.offset(side));
             boolean activated = offsetState.getBlock().onBlockActivated(BlockUtil.mc.world, pos, offsetState, BlockUtil.mc.player, EnumHand.MAIN_HAND, side, 0.0F, 0.0F, 0.0F);
 
             if (activated) {
-                BlockUtil.mc.getConnection().sendPacket(new CPacketEntityAction(BlockUtil.mc.player, CPacketEntityAction.Action.START_SNEAKING));
+                Objects.requireNonNull(BlockUtil.mc.getConnection()).sendPacket(new CPacketEntityAction(BlockUtil.mc.player, CPacketEntityAction.Action.START_SNEAKING));
                 BlockUtil.unshift = true;
             }
 

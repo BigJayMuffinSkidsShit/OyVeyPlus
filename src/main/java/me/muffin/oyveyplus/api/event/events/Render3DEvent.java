@@ -1,6 +1,5 @@
 package me.muffin.oyveyplus.api.event.events;
 
-import me.muffin.oyveyplus.api.event.Event;
 import me.muffin.oyveyplus.api.event.EventStage;
 
 public class Render3DEvent

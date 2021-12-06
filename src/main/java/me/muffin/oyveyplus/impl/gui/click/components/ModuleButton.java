@@ -1,8 +1,6 @@
 package me.muffin.oyveyplus.impl.gui.click.components;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.muffin.oyveyplus.OyVeyPlus;
-import me.muffin.oyveyplus.api.manager.TextManager;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
 import me.muffin.oyveyplus.impl.gui.click.Component;
@@ -11,7 +9,6 @@ import me.muffin.oyveyplus.impl.gui.click.components.settings.KeyButton;
 import me.muffin.oyveyplus.impl.gui.click.components.settings.ModeButton;
 import me.muffin.oyveyplus.impl.gui.click.components.settings.SliderButton;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.TextFormatting;
 
 
 import java.awt.*;
@@ -47,7 +44,6 @@ public class ModuleButton extends me.muffin.oyveyplus.impl.gui.click.Component {
                         continue;
                     case MODE:
                         components.add(new ModeButton(s, this, settingY));
-                        continue;
                 }
             }
         }
@@ -74,9 +70,7 @@ public class ModuleButton extends me.muffin.oyveyplus.impl.gui.click.Component {
     public void updateComponent(final double mouseX, final double mouseY) {
         isHovered = isHovered(mouseX, mouseY);
         if (!components.isEmpty()) {
-            components.forEach(c -> {
-                c.updateComponent(mouseX, mouseY);
-            });
+            components.forEach(c -> c.updateComponent(mouseX, mouseY));
         }
     }
 
@@ -91,24 +85,18 @@ public class ModuleButton extends me.muffin.oyveyplus.impl.gui.click.Component {
             open = !open;
             frame.update();
         }
-        components.forEach(c -> {
-            c.mouseClicked(mouseX, mouseY, button);
-        });
+        components.forEach(c -> c.mouseClicked(mouseX, mouseY, button));
     }
 
     @Override
     public void mouseReleased(final double mouseX, final double mouseY, final int mouseButton) {
         String s = module.getName() + " -";
-        components.forEach(c -> {
-            c.mouseReleased(mouseX, mouseY, mouseButton);
-        });
+        components.forEach(c -> c.mouseReleased(mouseX, mouseY, mouseButton));
     }
 
     @Override
     public void keyTyped(final int key) {
-        components.forEach(c -> {
-            c.keyTyped(key);
-        });
+        components.forEach(c -> c.keyTyped(key));
     }
 
     @Override

@@ -7,5 +7,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(value={Entity.class})
 public interface IEntity {
     @Accessor(value="isInWeb")
-    public boolean getIsInWeb();
+    boolean getIsInWeb();
 }

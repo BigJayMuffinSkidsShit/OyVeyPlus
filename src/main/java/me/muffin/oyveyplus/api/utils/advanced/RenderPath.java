@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import net.minecraft.util.math.BlockPos;
 
 public class RenderPath {
-	public static ArrayList<BlockPos> path = new ArrayList<BlockPos>();
+	public static ArrayList<BlockPos> path = new ArrayList <>();
 	public static Color color;
 	
 	public static void setPath(ArrayList<BlockPos> path, Color color) {

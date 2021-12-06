@@ -2,7 +2,6 @@ package me.muffin.oyveyplus.impl.modules.world;
 
 import me.muffin.oyveyplus.OyVeyPlus;
 import me.muffin.oyveyplus.api.module.Module;
-import me.muffin.oyveyplus.api.settings.Setting;
 import me.muffin.oyveyplus.api.utils.BlockUtil;
 import me.muffin.oyveyplus.api.utils.Timer;
 import me.muffin.oyveyplus.impl.mixin.mixins.accessors.AccessorKeybinding;
@@ -54,7 +53,7 @@ public class BurrowBypass extends Module {
         }
         if (stage == 2){
             OyVeyPlus.TIMER_VALUE = 1;
-            if (mc.player.onGround) ((AccessorKeybinding) mc.gameSettings.keyBindJump).isKeyDown();;
+            if (mc.player.onGround) ((AccessorKeybinding) mc.gameSettings.keyBindJump).isKeyDown();
             BlockUtil.placeBlock(position);
             pdelay++;
             if (pdelay >= 30){

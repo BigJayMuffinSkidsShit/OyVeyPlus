@@ -16,8 +16,8 @@ public class Renderer{
 	static Minecraft mc = Minecraft.getMinecraft();
 	static int delay=0;
 	public static String[] status;
-	public static ArrayList<BlockColor> rectangles = new ArrayList<BlockColor>();
-	public static ArrayList<BlockColor> filledBoxes = new ArrayList<BlockColor>();
+	public static ArrayList<BlockColor> rectangles = new ArrayList <>();
+	public static ArrayList<BlockColor> filledBoxes = new ArrayList <>();
 
 	@SubscribeEvent
 	public void renderText(RenderGameOverlayEvent.Text e) {

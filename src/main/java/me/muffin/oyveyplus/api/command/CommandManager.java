@@ -4,10 +4,7 @@ import net.minecraft.util.text.TextFormatting;
 import me.muffin.oyveyplus.api.utils.MessageUtil;
 import me.muffin.oyveyplus.impl.commands.PrefixCommand;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author fuckyouthinkimboogieman
@@ -20,7 +17,7 @@ public class CommandManager {
 
     public CommandManager() {
         commands = new ArrayList<>();
-        commands.addAll(Arrays.asList(
+        commands.addAll(Collections.singletonList(
                 new PrefixCommand()
         ));
 

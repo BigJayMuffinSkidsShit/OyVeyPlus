@@ -1,15 +1,11 @@
 package me.muffin.oyveyplus.api.module;
 
-import com.google.common.eventbus.Subscribe;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.muffin.oyveyplus.OyVeyPlus;
-import me.muffin.oyveyplus.api.event.events.EventRender;
-import me.muffin.oyveyplus.api.event.events.EventTick;
 import me.muffin.oyveyplus.api.event.events.Render3DEvent;
 import me.muffin.oyveyplus.api.settings.Setting;
 import me.muffin.oyveyplus.api.utils.MessageUtil;
 import me.muffin.oyveyplus.api.wrapper.Wrapper;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Arrays;
@@ -117,7 +113,7 @@ public class Module implements Wrapper {
     }
 
     public Setting<Boolean> register(String name, boolean value) {
-        Setting<Boolean> setting = new Setting<Boolean>(name, this, getCategory(), value);
+        Setting<Boolean> setting = new Setting <>(name, this, getCategory(), value);
         OyVeyPlus.settingManager.register(setting);
         return setting;
     }

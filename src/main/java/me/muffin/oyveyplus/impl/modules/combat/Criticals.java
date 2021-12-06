@@ -1,6 +1,5 @@
 package me.muffin.oyveyplus.impl.modules.combat;
 
-import me.muffin.oyveyplus.api.event.events.EventPacket;
 import me.muffin.oyveyplus.api.event.events.PacketEvent;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;

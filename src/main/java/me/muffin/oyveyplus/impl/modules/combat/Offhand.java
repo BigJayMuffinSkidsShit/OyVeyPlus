@@ -4,11 +4,8 @@ import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.client.CPacketHeldItemChange;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 
 public class Offhand extends Module {
     private ItemStack itemStack;

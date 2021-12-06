@@ -5,14 +5,11 @@ import io.netty.buffer.Unpooled;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.module.Module.Category;
 import me.muffin.oyveyplus.api.settings.Setting;
-import me.muffin.oyveyplus.api.utils.EntityUtil;
 import me.muffin.oyveyplus.api.utils.NoClipData;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.CPacketCustomPayload;
-import net.minecraft.network.play.client.CPacketPlayer;
 
 public class NoClip extends Module{
 

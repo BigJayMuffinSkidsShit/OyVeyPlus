@@ -1,19 +1,13 @@
 package me.muffin.oyveyplus.impl.modules.combat;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-import me.muffin.oyveyplus.OyVeyPlus;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
 import me.muffin.oyveyplus.api.utils.*;
-import net.minecraft.block.BlockEnderChest;
-import net.minecraft.block.BlockObsidian;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,8 +23,8 @@ public class Surround extends Module {
     
     private final Timer timer = new Timer();
     private final Timer retryTimer = new Timer();
-    private final Set<Vec3d> extendingBlocks = new HashSet<Vec3d>();
-    private final Map<BlockPos, Integer> retries = new HashMap<BlockPos, Integer>();
+    private final Set<Vec3d> extendingBlocks = new HashSet <>();
+    private final Map<BlockPos, Integer> retries = new HashMap <>();
     private int isSafe;
     private BlockPos startPos;
     private boolean didPlace = false;
@@ -47,7 +41,7 @@ public class Surround extends Module {
         if (this == null) {
             disable();
         }
-        if((boolean) center.getValue())
+        if(center.getValue())
         	PlayerUtil.centerMotion();
         lastHotbarSlot = Surround.mc.player.inventory.currentItem;
         startPos = EntityUtil.getRoundedBlockPos(Surround.mc.player);
@@ -79,7 +73,7 @@ public class Surround extends Module {
     	for(BlockPos b : BlockUtil.getFriends(floored_pos))
     	{
     		if(BlockUtil.canPlaceBlock(b))
-    			BlockUtil.placeBlock(b, EnumHand.MAIN_HAND, (boolean)rotate.getValue(), (boolean)rotate.getValue(), true);
+    			BlockUtil.placeBlock(b, EnumHand.MAIN_HAND, rotate.getValue(), rotate.getValue(), true);
     		//	BlockUtil.placeBlock(b, EnumHand.MAIN_HAND, true, true, true);
     	}
     }

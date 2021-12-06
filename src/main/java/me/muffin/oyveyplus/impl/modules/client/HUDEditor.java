@@ -1,6 +1,5 @@
 package me.muffin.oyveyplus.impl.modules.client;
 
-import me.muffin.oyveyplus.OyVeyPlus;
 import me.muffin.oyveyplus.api.module.Module;
 
 public class HUDEditor extends Module

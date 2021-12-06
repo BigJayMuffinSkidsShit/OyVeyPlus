@@ -1,6 +1,5 @@
 package me.muffin.oyveyplus.impl.mixin;
 
-import me.muffin.oyveyplus.OyVeyPlus;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
@@ -10,13 +9,11 @@ import java.util.Map;
 
 public class MixinLoader
         implements IFMLLoadingPlugin {
-    private static boolean isObfuscatedEnvironment = false;
 
     public MixinLoader() {
         MixinBootstrap.init();
         Mixins.addConfiguration("mixins.oyveplus.json");
         MixinEnvironment.getDefaultEnvironment().setObfuscationContext("searge");
-        OyVeyPlus.logger.info(MixinEnvironment.getDefaultEnvironment().getObfuscationContext());
     }
 
     public String[] getASMTransformerClass() {
@@ -32,7 +29,7 @@ public class MixinLoader
     }
 
     public void injectData(Map<String, Object> data) {
-        isObfuscatedEnvironment = (Boolean) data.get("runtimeDeobfuscationEnabled");
+        data.get("runtimeDeobfuscationEnabled");
     }
 
     public String getAccessTransformerClass() {

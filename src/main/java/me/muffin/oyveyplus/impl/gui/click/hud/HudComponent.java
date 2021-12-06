@@ -1,10 +1,6 @@
 package me.muffin.oyveyplus.impl.gui.click.hud;
 
-import me.muffin.oyveyplus.OyVeyPlus;
-import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.utils.ColorUtil;
-import me.muffin.oyveyplus.impl.gui.click.components.ModuleButton;
-import me.muffin.oyveyplus.impl.gui.click.components.settings.BooleanButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 

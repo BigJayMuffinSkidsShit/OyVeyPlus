@@ -1,9 +1,5 @@
 package me.muffin.oyveyplus.api.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -24,11 +20,16 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 public class CrystalUtils {
     private static Minecraft mc = Minecraft.getMinecraft();
 
     public static boolean canSeePos(BlockPos pos) {
-        return CrystalUtils.mc.world.rayTraceBlocks(new Vec3d(CrystalUtils.mc.player.posX, CrystalUtils.mc.player.posY + (double)CrystalUtils.mc.player.getEyeHeight(), CrystalUtils.mc.player.posZ), new Vec3d((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), false, true, false) == null;
+        return CrystalUtils.mc.world.rayTraceBlocks(new Vec3d(CrystalUtils.mc.player.posX, CrystalUtils.mc.player.posY + (double)CrystalUtils.mc.player.getEyeHeight(), CrystalUtils.mc.player.posZ), new Vec3d(pos.getX(), pos.getY(), pos.getZ()), false, true, false) == null;
     }
 
     public static boolean CanPlaceCrystalIfObbyWasAtPos(final BlockPos pos)
@@ -40,10 +41,7 @@ public class CrystalUtils {
 
         if (floor == Blocks.AIR && ceil == Blocks.AIR)
         {
-            if (mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.add(0, 1, 0))).isEmpty())
-            {
-                return true;
-            }
+            return mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.add(0, 1, 0))).isEmpty();
         }
 
         return false;
@@ -67,10 +65,7 @@ public class CrystalUtils {
 
             if (floor == Blocks.AIR && ceil == Blocks.AIR)
             {
-                if (mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.add(0, 1, 0))).isEmpty())
-                {
-                    return true;
-                }
+                return mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.add(0, 1, 0))).isEmpty();
             }
         }
 
@@ -81,19 +76,19 @@ public class CrystalUtils {
         if (CrystalUtils.mc.world.getBlockState(blockPos).getBlock() != Blocks.BEDROCK && CrystalUtils.mc.world.getBlockState(blockPos).getBlock() != Blocks.OBSIDIAN) {
             return false;
         }
-        if (CrystalUtils.mc.world.getBlockState(blockPos.add(0, 1, 0)).getBlock() != Blocks.AIR || placeUnderBlock == false && CrystalUtils.mc.world.getBlockState(blockPos.add(0, 2, 0)).getBlock() != Blocks.AIR) {
+        if (CrystalUtils.mc.world.getBlockState(blockPos.add(0, 1, 0)).getBlock() != Blocks.AIR || !placeUnderBlock && CrystalUtils.mc.world.getBlockState(blockPos.add(0, 2, 0)).getBlock() != Blocks.AIR) {
             return false;
         }
-        if (multiPlace != false) {
-            return CrystalUtils.mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(blockPos.add(0, 1, 0))).isEmpty() && placeUnderBlock == false && CrystalUtils.mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(blockPos.add(0, 2, 0))).isEmpty();
+        if (multiPlace) {
+            return CrystalUtils.mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(blockPos.add(0, 1, 0))).isEmpty() && !placeUnderBlock && CrystalUtils.mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(blockPos.add(0, 2, 0))).isEmpty();
         }
         for (Entity entity : CrystalUtils.mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(blockPos.add(0, 1, 0)))) {
             if (entity instanceof EntityEnderCrystal) continue;
             return false;
         }
-        if (placeUnderBlock == false) {
+        if (!placeUnderBlock) {
             for (Entity entity : CrystalUtils.mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(blockPos.add(0, 2, 0)))) {
-                if (entity instanceof EntityEnderCrystal || holePlace != false && entity instanceof EntityPlayer) continue;
+                if (entity instanceof EntityEnderCrystal || holePlace && entity instanceof EntityPlayer) continue;
                 return false;
             }
         }
@@ -122,10 +117,10 @@ public class CrystalUtils {
             int z = CrystalUtils.mc.player.getPosition().getZ() - (int)range;
             while ((float)z <= (float)CrystalUtils.mc.player.getPosition().getZ() + range) {
                 int y;
-                int n = y = sphere != false ? CrystalUtils.mc.player.getPosition().getY() - (int)range : CrystalUtils.mc.player.getPosition().getY();
+                int n = y = sphere ? CrystalUtils.mc.player.getPosition().getY() - (int)range : CrystalUtils.mc.player.getPosition().getY();
                 while ((float)y < (float)CrystalUtils.mc.player.getPosition().getY() + range) {
-                    double distance = (CrystalUtils.mc.player.getPosition().getX() - x) * (CrystalUtils.mc.player.getPosition().getX() - x) + (CrystalUtils.mc.player.getPosition().getZ() - z) * (CrystalUtils.mc.player.getPosition().getZ() - z) + (sphere != false ? (CrystalUtils.mc.player.getPosition().getY() - y) * (CrystalUtils.mc.player.getPosition().getY() - y) : 0);
-                    if (distance < (double)(range * range) && (hollow == false || distance >= ((double)range - Double.longBitsToDouble(Double.doubleToLongBits(638.4060856917202) ^ 0x7F73F33FA9DAEA7FL)) * ((double)range - Double.longBitsToDouble(Double.doubleToLongBits(13.015128470890444) ^ 0x7FDA07BEEB3F6D07L)))) {
+                    double distance = (CrystalUtils.mc.player.getPosition().getX() - x) * (CrystalUtils.mc.player.getPosition().getX() - x) + (CrystalUtils.mc.player.getPosition().getZ() - z) * (CrystalUtils.mc.player.getPosition().getZ() - z) + (sphere ? (CrystalUtils.mc.player.getPosition().getY() - y) * (CrystalUtils.mc.player.getPosition().getY() - y) : 0);
+                    if (distance < (double)(range * range) && (!hollow || distance >= ((double)range - Double.longBitsToDouble(Double.doubleToLongBits(638.4060856917202) ^ 0x7F73F33FA9DAEA7FL)) * ((double)range - Double.longBitsToDouble(Double.doubleToLongBits(13.015128470890444) ^ 0x7FDA07BEEB3F6D07L)))) {
                         blocks.add(new BlockPos(x, y, z));
                     }
                     ++y;
@@ -162,7 +157,7 @@ public class CrystalUtils {
 
         double distancedsize = l_Distance / (double) doubleExplosionSize;
         Vec3d vec3d = new Vec3d(posX, posY, posZ);
-        double blockDensity = (double) entity.world.getBlockDensity(vec3d, entity.getEntityBoundingBox());
+        double blockDensity = entity.world.getBlockDensity(vec3d, entity.getEntityBoundingBox());
         double v = (1.0D - distancedsize) * blockDensity;
         float damage = (int) ((v * v + v) / 2.0D * 7.0D * doubleExplosionSize + 1.0D);
         double finald = 1.0D;
@@ -191,7 +186,7 @@ public class CrystalUtils {
             float f = MathHelper.clamp(k, 0.0F, 20.0F);
             damage *= 1.0F - f / 25.0F;
 
-            if (entity.isPotionActive(Potion.getPotionById(11)))
+            if (entity.isPotionActive(Objects.requireNonNull(Potion.getPotionById(11))))
             {
                 damage -= damage / 4;
             }

@@ -1,26 +1,10 @@
 package me.muffin.oyveyplus.api.module;
 
-import com.google.common.eventbus.Subscribe;
-import me.muffin.oyveyplus.api.event.events.EventTick;
-import me.muffin.oyveyplus.api.event.events.Render3DEvent;
 import me.muffin.oyveyplus.api.utils.ClassFinder;
-import me.muffin.oyveyplus.impl.gui.click.hud.HudComponent;
-import me.muffin.oyveyplus.impl.modules.client.HUDEditor;
-import me.muffin.oyveyplus.impl.modules.combat.*;
-import me.muffin.oyveyplus.impl.modules.combat.Velocity;
-import me.muffin.oyveyplus.impl.modules.movement.Anchor;
-import me.muffin.oyveyplus.impl.modules.movement.ReverseStep;
-import me.muffin.oyveyplus.impl.modules.movement.Sprint;
 import me.muffin.oyveyplus.api.wrapper.Wrapper;
-import me.muffin.oyveyplus.impl.modules.client.Gui;
-import me.muffin.oyveyplus.impl.modules.movement.Step;
-import me.muffin.oyveyplus.impl.modules.render.*;
-import me.muffin.oyveyplus.impl.modules.world.*;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;

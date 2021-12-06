@@ -6,7 +6,7 @@ buildscript {
         }
 
         maven {
-            url = "https://files.minecraftforge.net/maven"
+            url = 'https://files.minecraftforge.net/maven'
         }
 
         maven {
@@ -26,9 +26,9 @@ apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 
-version = "0.1"
-group = "me.muffin"
-archivesBaseName = "oyveyplus"
+version = '0.1'
+group = 'me.muffin'
+archivesBaseName = 'oyveyplus'
 
 sourceCompatibility = targetCompatibility = '1.8'
 
@@ -37,10 +37,11 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2847"
-    runDir = "run"
+    version = '1.12.2-14.23.5.2847'
+    runDir = 'run'
     coreMod = 'me.muffin.oyveyplus.impl.mixin.MixinLoader'
-    mappings = "stable_39"
+    mappings = 'stable_39'
+    makeObfSourceJar false // An Srg named sources jar is made by default. Pretty useless so disabled.
 }
 
 repositories {
@@ -50,41 +51,33 @@ repositories {
     }
 
     maven {
-        name = "jitpack.io"
-        url = "https://jitpack.io"
+        name = 'jitpack.io'
+        url = 'https://jitpack.io'
     }
     mavenCentral()
 }
 
 dependencies {
-    compile("org.spongepowered:mixin:0.7.4-SNAPSHOT") {
-        exclude module: 'guava'
-        exclude module: 'gson'
+    compile('org.spongepowered:mixin:0.7.4-SNAPSHOT') { // WARNING: Upgrading to 0.8+ can possibly break compatibility with future client.
+        exclude module: 'launchwrapper' // Excludes unneeded stuff.
+        exclude module: 'guava' // Excludes unneeded stuff.
+        exclude module: 'gson' // Excludes unneeded stuff.
+        exclude module: 'commons-io' // Excludes unneeded stuff.
+        exclude module: 'log4j-core' // Excludes unneeded stuff.
     }
-
-    compile('org.reflections:reflections:0.9.12') {
+    compile group: 'net.jodah', name: 'typetools', version: '0.6.3'
+    compile('org.reflections:reflections:0.10.2') {
         exclude module: 'guava'
     }
-
     compile 'club.minnced:java-discord-rpc:2.0.2'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-    compile 'org.slick2d:slick2d-core:1.0.2'
 }
 
 shadowJar {
     dependencies {
-        include(dependency('org.spongepowered:mixin'))
+        include dependency('org.spongepowered:mixin')
     }
-
-    manifest {
-        attributes(
-                "Manifest-Version": "1.0",
-                "FMLCorePluginContainsFMLMod": 'true',
-                'tweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
-                "ForceLoadAsMod": 'true',
-                "FMLCorePlugin": 'me.muffin.oyveyplus.impl.mixin.MixinLoader'
-        )
-    }
+    exclude 'dummyThing', 'LICENSE.txt', 'org/**/*.html', 'META-INF/maven/**' // Removes unneeded files that are legit just useless bloat text files.
     classifier = 'release'
 }
 
@@ -97,8 +90,8 @@ reobf {
 
 processResources {
     // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', project.minecraft.version
 
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
@@ -114,4 +107,16 @@ processResources {
     }
 }
 
-build.dependsOn(shadowJar)
+
+jar {
+    manifest {
+        attributes(
+                'FMLCorePluginContainsFMLMod': 'true',
+                'tweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+                'ForceLoadAsMod': 'true',
+                'FMLCorePlugin': 'me.muffin.oyveyplus.impl.mixin.MixinLoader'
+        )
+    }
+}
+
+build.dependsOn shadowJar

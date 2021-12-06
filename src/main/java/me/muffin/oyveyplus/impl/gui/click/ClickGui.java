@@ -1,25 +1,16 @@
 package me.muffin.oyveyplus.impl.gui.click;
 
-import me.muffin.oyveyplus.OyVeyPlus;
 import me.muffin.oyveyplus.api.module.Module;
-import me.muffin.oyveyplus.impl.gui.click.components.ModuleButton;
 import me.muffin.oyveyplus.impl.gui.click.particle.ParticleSystem;
-import me.muffin.oyveyplus.impl.gui.click.particle.Snow;
 import me.muffin.oyveyplus.impl.modules.client.Gui;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 public class ClickGui extends GuiScreen {
 
@@ -27,6 +18,7 @@ public class ClickGui extends GuiScreen {
     public static Color color;
     private final ParticleSystem particleSystem;
     private ArrayList<Component> components = new ArrayList<>();
+
     public ClickGui() {
         this.particleSystem = new ParticleSystem(100);
         frames = new ArrayList<>();
@@ -53,7 +45,7 @@ public class ClickGui extends GuiScreen {
 	public void handleMouseInput() throws IOException {
 		// TODO Auto-generated method stub
 		double scrollspeed=me.muffin.oyveyplus.impl.modules.client.Gui.scrollspeed;
-		 float Scroll =+ Math.signum(Mouse.getEventDWheel());
+		 float Scroll = Math.signum(Mouse.getEventDWheel());
 		 for(Frame f : frames)
 		 {
 			 if(Scroll>0)

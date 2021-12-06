@@ -9,6 +9,8 @@ import me.muffin.oyveyplus.api.event.events.EventPacket;
 import me.muffin.oyveyplus.api.module.Module;
 import me.muffin.oyveyplus.api.settings.Setting;
 
+import java.util.Objects;
+
 public class Speed extends Module {
     public Speed() {
         super("Speed", "Move faster!", Category.Movement);
@@ -27,7 +29,7 @@ public class Speed extends Module {
         lastDist = Math.sqrt(Math.pow(mc.player.posX - mc.player.prevPosX, 2) + Math.pow(mc.player.posZ - mc.player.prevPosZ, 2));
     }
 
-    @Subscribe
+    @SubscribeEvent
     public void onMove(EventMove event) {
         if (mode.getValue().equalsIgnoreCase("YPort")) mc.player.motionY = -0.4D;
 
@@ -41,7 +43,7 @@ public class Speed extends Module {
             } else moveSpeed = 1.38 * (speed.getValue() / 10);
 
             if (mc.player.isPotionActive(MobEffects.SPEED)) {
-                final int amplifier = mc.player.getActivePotionEffect(MobEffects.SPEED).getAmplifier();
+                final int amplifier = Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.SPEED)).getAmplifier();
                 moveSpeed *= 1.0 + 0.2 * (amplifier + 1);
             }
 
@@ -54,7 +56,7 @@ public class Speed extends Module {
 
             moveSpeed *= 2.149;
             if (mc.player.isPotionActive(MobEffects.SPEED)) {
-                final int amplifier = mc.player.getActivePotionEffect(MobEffects.SPEED).getAmplifier();
+                final int amplifier = Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.SPEED)).getAmplifier();
                 moveSpeed *= 1.0 + 0.2 * (amplifier + 1);
             }
 
@@ -64,7 +66,7 @@ public class Speed extends Module {
             else moveSpeed = lastDist - (0.66 * (lastDist - (speed.getValue() / 10)));
 
             if (mc.player.isPotionActive(MobEffects.SPEED)) {
-                final int amplifier = mc.player.getActivePotionEffect(MobEffects.SPEED).getAmplifier();
+                final int amplifier = Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.SPEED)).getAmplifier();
                 moveSpeed *= 1.0 + 0.2 * (amplifier + 1);
             }
 

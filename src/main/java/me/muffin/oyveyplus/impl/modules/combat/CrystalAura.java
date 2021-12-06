@@ -106,7 +106,7 @@ public class CrystalAura extends Module {
     @EventHandler
     private final Listener<EventPacket.Receive> listener1 = new Listener<>(event -> {
         if(event.getPacket() instanceof SPacketSoundEffect && sync.getValue()) {
-            SPacketSoundEffect packet = (SPacketSoundEffect) event.getPacket();
+            SPacketSoundEffect packet = event.getPacket();
 
             if(packet.getCategory() == SoundCategory.BLOCKS && packet.getSound() == SoundEvents.ENTITY_GENERIC_EXPLODE) {
                 for(Entity entity : mc.world.loadedEntityList) {
@@ -166,7 +166,7 @@ public class CrystalAura extends Module {
             final double targetDMG = EntityUtil.calculate(pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, target);
             final double selfDMG = EntityUtil.calculate(pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, mc.player) + 2.0;
 
-            if(CrystalUtils.canPlaceCrystal(pos, this.secondCheck.getValue(),false, false) && ((targetDMG >= this.minDmg.getValue().intValue() || (targetDMG >= target.getHealth() && target.getHealth() <= this.facePlaceHealth.getValue().intValue() || (target.getHealth() <= armourBreakHealth.getValue().doubleValue())) && ((EntityUtil.calculate(pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, mc.player) + 2.0 < mc.player.getHealth() && selfDMG < targetDMG))))) {
+            if(CrystalUtils.canPlaceCrystal(pos, this.secondCheck.getValue(),false, false) && ((targetDMG >= this.minDmg.getValue().intValue() || (targetDMG >= target.getHealth() && target.getHealth() <= this.facePlaceHealth.getValue().intValue() || (target.getHealth() <= armourBreakHealth.getValue())) && ((EntityUtil.calculate(pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, mc.player) + 2.0 < mc.player.getHealth() && selfDMG < targetDMG))))) {
                 if(maxDamage > targetDMG) continue;
 
                 if(target.isDead) continue;
@@ -245,7 +245,7 @@ public class CrystalAura extends Module {
         }
 
         EntityEnderCrystal crystal = mc.world.loadedEntityList.stream()
-                .filter(entity -> isValidCrystal(entity))
+                .filter(this::isValidCrystal)
                 .map(entity -> (EntityEnderCrystal) entity)
                 .min(Comparator.comparing(entityEnderCrystal -> mc.player.getDistance(entityEnderCrystal)))
                 .orElse(null);
@@ -300,10 +300,7 @@ public class CrystalAura extends Module {
             return false;
 
         if (entity instanceof EntityPlayer) {
-            if (entity == mc.player)
-                return false;
-
-            return true;
+            return entity != mc.player;
         }
 
         return false;
@@ -314,7 +311,7 @@ public class CrystalAura extends Module {
             return false;
         }
 
-        if (entity.getDistance(mc.player) > (!mc.player.canEntityBeSeen(entity) ? wallRange.getValue().doubleValue() : breakRange.getValue().doubleValue()))
+        if (entity.getDistance(mc.player) > (!mc.player.canEntityBeSeen(entity) ? wallRange.getValue() : breakRange.getValue()))
             return false;
 
         switch (breakMode.getValue()) {
@@ -331,10 +328,10 @@ public class CrystalAura extends Module {
                 float minDMG = (float) this.minDmg.getValue().doubleValue();
 
                 /// FacePlace
-                if (target.getHealth() + target.getAbsorptionAmount() <= facePlaceHealth.getValue().doubleValue())
+                if (target.getHealth() + target.getAbsorptionAmount() <= facePlaceHealth.getValue())
                     minDMG = 1f;
 
-                if (targetDMG > minDMG && selfDMG < maxSelfDmg.getValue().doubleValue())
+                if (targetDMG > minDMG && selfDMG < maxSelfDmg.getValue())
                     return true;
 
                 break;

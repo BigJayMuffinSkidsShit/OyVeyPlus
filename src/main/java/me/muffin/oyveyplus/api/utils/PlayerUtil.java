@@ -32,7 +32,7 @@ public class PlayerUtil{
 	 */
 	public static ArrayList<EntityPlayer> getAll() {
 		try {
-			ArrayList<EntityPlayer> players = new ArrayList<EntityPlayer>();
+			ArrayList<EntityPlayer> players = new ArrayList <>();
 			
 			for (EntityPlayer player : mc.world.playerEntities) {
 				if (!player.isEntityEqual(mc.player)) {
@@ -42,7 +42,7 @@ public class PlayerUtil{
 			
 			return players;
 		} catch (NullPointerException ignored) {
-			return new ArrayList<EntityPlayer>();
+			return new ArrayList <>();
 		}
 	}
 	
@@ -130,11 +130,7 @@ public class PlayerUtil{
 	}
 	
 	public static boolean isTheSameBlock(BlockPos one, BlockPos two) {
-		if(Math.abs(one.getX())==Math.abs(one.getX()) && Math.abs(one.getZ())==Math.abs(one.getZ()))
-		{
-			return true;
-		}
-		return false;
+		return Math.abs(one.getX()) == Math.abs(one.getX()) && Math.abs(one.getZ()) == Math.abs(one.getZ());
 	}
 	
 	/**

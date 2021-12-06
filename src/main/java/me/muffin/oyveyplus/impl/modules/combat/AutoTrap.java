@@ -29,7 +29,7 @@ public class AutoTrap extends Module {
     public Setting<Boolean> antiStep = this.register("AntiStep",true);
     public Setting<Boolean> noGhost = this.register("NoGhostBlox",true);
     private final Timer timer = new Timer();
-    private final Map<BlockPos, Integer> retries = new HashMap<BlockPos, Integer>();
+    private final Map<BlockPos, Integer> retries = new HashMap <>();
     private final Timer retryTimer = new Timer();
     public EntityPlayer target;
     private boolean didPlace = false;
