@@ -4,6 +4,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.muffin.oyveyplus.OyVeyPlus;
 import me.muffin.oyveyplus.api.manager.TextManager;
 import me.muffin.oyveyplus.api.module.Module;
+import me.muffin.oyveyplus.api.utils.advanced.RenderUtil;
 import me.muffin.oyveyplus.impl.gui.click.components.ModuleButton;
 import net.minecraft.client.gui.GuiScreen;
 
@@ -45,6 +46,7 @@ public class Frame extends GuiScreen {
 
     public void renderFrame() {
         OyVeyPlus.gui.drawGradient(x, y, x + width, y + barHeight, ClickGui.color.getRGB(), ClickGui.color.getRGB());
+        RenderUtil.drawLine(x,y,x + width,y + barHeight,1,ClickGui.color.getRGB());
         OyVeyPlus.textManager.drawStringWithShadow(ChatFormatting.BOLD + category.name(), x + width / 2 - OyVeyPlus.textManager.getStringWidth(category.name()) / 2, y + 1, -1);
         if (open && !components.isEmpty()) {
             components.forEach(Component::render);
