@@ -25,6 +25,8 @@ bin/
 # forge nd shit
 
 run/
+saves/
+crash-reports/
 changelog.txt
 
 #eclipse
